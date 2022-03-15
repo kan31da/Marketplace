@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Marketplace.Core.Constants;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Globalization;
 
 namespace Marketplace.ModelBinders
@@ -32,7 +33,7 @@ namespace Marketplace.ModelBinders
                 {
                     try
                     {
-                        actualValue = DateTime.Parse(dateValue, new CultureInfo("bg-bg"));
+                        actualValue = DateTime.Parse(dateValue, new CultureInfo(FormatingConstant.CultureDateFormat));
                     }
                     catch (Exception e)
                     {
