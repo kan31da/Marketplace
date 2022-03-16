@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 
-namespace Marketplace.Data.Migrations
+namespace Marketplace.Infrastructure.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

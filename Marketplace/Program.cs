@@ -1,5 +1,5 @@
 using Marketplace.Core.Constants;
-using Marketplace.Data;
+using Marketplace.Infrastructure.Data;
 using Marketplace.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
