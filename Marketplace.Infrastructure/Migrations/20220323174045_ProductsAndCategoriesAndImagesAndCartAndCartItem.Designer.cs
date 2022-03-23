@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketplace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220323171208_ProductsAndCategoriesAndImagesAndCartAndCartItem")]
+    [Migration("20220323174045_ProductsAndCategoriesAndImagesAndCartAndCartItem")]
     partial class ProductsAndCategoriesAndImagesAndCartAndCartItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
