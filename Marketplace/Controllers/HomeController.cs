@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Marketplace.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -16,9 +16,9 @@ namespace Marketplace.Controllers
 
         public IActionResult Index()
         {
-            ViewData[MessageConstant.ErrorMessage] = "Error";
-            ViewData[MessageConstant.SuccessMessage] = "Success";
-            ViewData[MessageConstant.WarningMessage] = "Warning";
+            //ViewData[MessageConstant.ErrorMessage] = "Error";
+            //ViewData[MessageConstant.SuccessMessage] = "Success";
+            //ViewData[MessageConstant.WarningMessage] = "Warning";
 
             return View();
         }
