@@ -2,6 +2,11 @@
 {
     public static class ModelConstants
     {
+        //APPLICATIONUSER
+
+        public const int FIRSTNAME_LENTGH = 60;
+        public const int LASTNAME_LENTGH = 60;
+
         //CATEGORY
         public const int LABEL_LENTGH = 40;
 

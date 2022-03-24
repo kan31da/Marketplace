@@ -1,5 +1,6 @@
 using Marketplace.Core.Constants;
 using Marketplace.Infrastructure.Data;
+using Marketplace.Infrastructure.Data.Repositories;
 using Marketplace.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,10 @@ builder.Services.AddControllersWithViews()
     });
 
 
+builder.Services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>();
+
+
+
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Default Password settings.
@@ -33,6 +38,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredLength = 6;
     options.Password.RequiredUniqueChars = 1;
 });
+
+
 
 var app = builder.Build();
 
