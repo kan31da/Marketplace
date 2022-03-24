@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace", "Marketplace\Marketplace.csproj", "{3FC956F2-3A7A-48AD-9F62-C95B348D6C53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace", "Marketplace\Marketplace.csproj", "{3FC956F2-3A7A-48AD-9F62-C95B348D6C53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Core", "Marketplace.Core\Marketplace.Core.csproj", "{F27AB84A-A214-4092-B010-469DEBBDFA10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace.Core", "Marketplace.Core\Marketplace.Core.csproj", "{F27AB84A-A214-4092-B010-469DEBBDFA10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Infrastructure", "Marketplace.Infrastructure\Marketplace.Infrastructure.csproj", "{8ACDF2D1-6B95-4DD7-8A62-F3B235087E0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Marketplace.Infrastructure", "Marketplace.Infrastructure\Marketplace.Infrastructure.csproj", "{8ACDF2D1-6B95-4DD7-8A62-F3B235087E0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Marketplace.Api", "Marketplace.Api\Marketplace.Api.csproj", "{790470A3-3E9F-4891-A938-DA634F241398}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8ACDF2D1-6B95-4DD7-8A62-F3B235087E0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8ACDF2D1-6B95-4DD7-8A62-F3B235087E0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8ACDF2D1-6B95-4DD7-8A62-F3B235087E0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{790470A3-3E9F-4891-A938-DA634F241398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{790470A3-3E9F-4891-A938-DA634F241398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{790470A3-3E9F-4891-A938-DA634F241398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{790470A3-3E9F-4891-A938-DA634F241398}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
