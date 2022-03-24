@@ -72,7 +72,8 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");

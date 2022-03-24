@@ -35,7 +35,6 @@ namespace Marketplace.Infrastructure.Data
 
         public int Rating { get; set; }
 
-        [Required]
         public ICollection<Image> Images { get; set; } = new List<Image>();
 
     }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Marketplace.Infrastructure.DataConstants;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marketplace.Infrastructure.Data
 {
@@ -9,6 +10,7 @@ namespace Marketplace.Infrastructure.Data
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
+        [StringLength(ModelConstants.IMAGE_PATH_LENTGH)]
         public string ImagePath { get; set; }
     }
 }

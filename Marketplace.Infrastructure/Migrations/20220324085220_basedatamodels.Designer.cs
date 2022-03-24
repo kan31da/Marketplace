@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketplace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220323174045_ProductsAndCategoriesAndImagesAndCartAndCartItem")]
-    partial class ProductsAndCategoriesAndImagesAndCartAndCartItem
+    [Migration("20220324085220_basedatamodels")]
+    partial class basedatamodels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -74,7 +74,8 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(600)
+                        .HasColumnType("nvarchar(600)");
 
                     b.Property<Guid?>("ProductId")
                         .HasColumnType("uniqueidentifier");

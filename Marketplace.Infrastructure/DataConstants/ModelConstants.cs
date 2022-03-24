@@ -13,5 +13,8 @@
         public const int QUANTITY_MAX = 1000000;
 
         public const string DECIMAL_PRECISION = "decimal(7,2)";
+
+        //IMAGE
+        public const int IMAGE_PATH_LENTGH = 600;
     }
 }
