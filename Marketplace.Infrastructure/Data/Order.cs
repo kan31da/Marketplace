@@ -17,8 +17,5 @@ namespace Marketplace.Infrastructure.Data
         [Required]
         [Column(TypeName = ModelConstants.ORDER_DECIMAL_PRECISION)]
         public decimal OrderPrice { get; set; }
-
-        //[ForeignKey("Id")]
-        //public virtual ApplicationUser User { get; set; }
     }
 }

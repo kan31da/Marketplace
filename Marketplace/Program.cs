@@ -1,5 +1,6 @@
 using Marketplace.Core.Constants;
 using Marketplace.Infrastructure.Data;
+using Marketplace.Infrastructure.Data.Identity;
 using Marketplace.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApplicationDbContexts(builder.Configuration);
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews()

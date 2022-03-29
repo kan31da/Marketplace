@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Marketplace.Infrastructure.Data.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Marketplace.Infrastructure.Data
@@ -10,7 +11,9 @@ namespace Marketplace.Infrastructure.Data
 
         public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
-        //[ForeignKey("Id")]
-        //public virtual ApplicationUser User { get; set; }
+        public string ApplicationUserId { get; set; }
+
+        [ForeignKey(nameof(ApplicationUserId))]
+        public ApplicationUser User { get; set; }
     }
 }
