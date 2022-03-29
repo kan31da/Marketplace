@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketplace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220324085220_basedatamodels")]
-    partial class basedatamodels
+    [Migration("20220329143745_basedatabasemodels")]
+    partial class basedatabasemodels
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -85,6 +85,55 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<decimal>("OrderPrice")
+                        .HasColumnType("decimal(14,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.OrderItem", b =>
+                {
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ProductId", "OrderId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderItems");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.OrderStatus", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId")
+                        .IsUnique();
+
+                    b.ToTable("OrderStatuses");
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Product", b =>
@@ -330,7 +379,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
             modelBuilder.Entity("Marketplace.Infrastructure.Data.CartItem", b =>
                 {
                     b.HasOne("Marketplace.Infrastructure.Data.Cart", "Cart")
-                        .WithMany()
+                        .WithMany("CartItems")
                         .HasForeignKey("CartId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -351,6 +400,36 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasOne("Marketplace.Infrastructure.Data.Product", null)
                         .WithMany("Images")
                         .HasForeignKey("ProductId");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.OrderItem", b =>
+                {
+                    b.HasOne("Marketplace.Infrastructure.Data.Order", "Order")
+                        .WithMany("OrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Marketplace.Infrastructure.Data.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.OrderStatus", b =>
+                {
+                    b.HasOne("Marketplace.Infrastructure.Data.Order", "Order")
+                        .WithOne("OrderStatus")
+                        .HasForeignKey("Marketplace.Infrastructure.Data.OrderStatus", "OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Product", b =>
@@ -415,9 +494,22 @@ namespace Marketplace.Infrastructure.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.Cart", b =>
+                {
+                    b.Navigation("CartItems");
+                });
+
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Category", b =>
                 {
                     b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("Marketplace.Infrastructure.Data.Order", b =>
+                {
+                    b.Navigation("OrderItems");
+
+                    b.Navigation("OrderStatus")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Product", b =>

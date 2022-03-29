@@ -20,7 +20,7 @@ namespace Marketplace.Infrastructure.Data
         public string Name { get; set; }
 
         [Required]
-        [Column(TypeName = ModelConstants.DECIMAL_PRECISION)]
+        [Column(TypeName = ModelConstants.PRODUCT_DECIMAL_PRECISION)]
         public decimal Price { get; set; }
 
         [Required]
@@ -36,6 +36,5 @@ namespace Marketplace.Infrastructure.Data
         public int Rating { get; set; }
 
         public ICollection<Image> Images { get; set; } = new List<Image>();
-
     }
 }

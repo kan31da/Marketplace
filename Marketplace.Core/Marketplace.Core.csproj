@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Marketplace.Infrastructure\Marketplace.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

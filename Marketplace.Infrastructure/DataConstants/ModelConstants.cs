@@ -17,7 +17,10 @@
         public const int QUANTITY_MIN = 0;
         public const int QUANTITY_MAX = 1000000;
 
-        public const string DECIMAL_PRECISION = "decimal(7,2)";
+        public const string PRODUCT_DECIMAL_PRECISION = "decimal(7,2)";
+
+        //ORDER
+        public const string ORDER_DECIMAL_PRECISION = "decimal(14,2)";
 
         //IMAGE
         public const int IMAGE_PATH_LENTGH = 600;
