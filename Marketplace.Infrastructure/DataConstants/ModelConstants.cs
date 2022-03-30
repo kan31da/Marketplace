@@ -24,5 +24,14 @@
 
         //IMAGE
         public const int IMAGE_PATH_LENTGH = 600;
+
+        //SUPPLIER
+        public const int SUPPLIER_NAME_LENTGH = 100;
+        public const int SUPPLIER_ADDRESS_LENTGH = 100;
+        public const int SUPPLIER_PHONE_LENTG = 20;
+
+        //SHIPPER
+        public const int SHIPPER_NAME_LENTGH = 100;
+        public const int SHIPPER_PHONE_LENTG = 20;
     }
 }

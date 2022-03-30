@@ -4,6 +4,7 @@ using Marketplace.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketplace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220330080807_Supplier")]
+    partial class Supplier
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -257,36 +259,6 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Shipper", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DeliveryDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<Guid>("OrderId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId")
-                        .IsUnique();
-
-                    b.ToTable("Shipper");
-                });
-
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Supplier", b =>
                 {
                     b.Property<Guid>("Id")
@@ -316,7 +288,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Supplier");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -541,17 +513,6 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Shipper", b =>
-                {
-                    b.HasOne("Marketplace.Infrastructure.Data.Models.Order", "Order")
-                        .WithOne("Shipper")
-                        .HasForeignKey("Marketplace.Infrastructure.Data.Models.Shipper", "OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-                });
-
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Supplier", b =>
                 {
                     b.HasOne("Marketplace.Infrastructure.Data.Models.Product", "Product")
@@ -637,9 +598,6 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.Navigation("OrderItems");
 
                     b.Navigation("OrderStatus")
-                        .IsRequired();
-
-                    b.Navigation("Shipper")
                         .IsRequired();
                 });
 

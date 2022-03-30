@@ -17,5 +17,7 @@ namespace Marketplace.Infrastructure.Data.Models
         [Required]
         [Column(TypeName = ModelConstants.ORDER_DECIMAL_PRECISION)]
         public decimal OrderPrice { get; set; }
+
+        public Shipper Shipper { get; set; }
     }
 }
