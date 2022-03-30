@@ -36,6 +36,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequireUppercase = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequiredUniqueChars = 1;
+                options.SignIn.RequireConfirmedAccount = false;
             });
 
             return services;
