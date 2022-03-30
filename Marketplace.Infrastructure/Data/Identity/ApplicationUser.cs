@@ -1,7 +1,7 @@
-﻿using Marketplace.Infrastructure.DataConstants;
+﻿using Marketplace.Infrastructure.Data.Models;
+using Marketplace.Infrastructure.DataConstants;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Marketplace.Infrastructure.Data.Identity
 {
