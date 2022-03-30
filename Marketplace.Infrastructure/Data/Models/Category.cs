@@ -1,7 +1,7 @@
 ﻿using Marketplace.Infrastructure.DataConstants;
 using System.ComponentModel.DataAnnotations;
 
-namespace Marketplace.Infrastructure.Data
+namespace Marketplace.Infrastructure.Data.Models
 {
     public class Category
     {

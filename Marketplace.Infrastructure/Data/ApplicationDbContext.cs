@@ -1,4 +1,5 @@
 ﻿using Marketplace.Infrastructure.Data.Identity;
+using Marketplace.Infrastructure.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

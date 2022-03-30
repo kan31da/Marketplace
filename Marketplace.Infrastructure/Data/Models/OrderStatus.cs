@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Marketplace.Infrastructure.Data
+namespace Marketplace.Infrastructure.Data.Models
 {
     public class OrderStatus
     {
