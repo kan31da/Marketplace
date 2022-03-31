@@ -4,21 +4,26 @@
 
 namespace Marketplace.Infrastructure.Data.Migrations
 {
-    public partial class userupdate : Migration
+    public partial class ApplicationUserupdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "PhoneNumber",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
+
             migrationBuilder.AlterColumn<string>(
                 name: "LastName",
                 table: "AspNetUsers",
                 type: "nvarchar(60)",
                 maxLength: 60,
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(60)",
-                oldMaxLength: 60,
-                oldNullable: true);
+                oldType: "nvarchar(max)");
 
             migrationBuilder.AlterColumn<string>(
                 name: "FirstName",
@@ -26,31 +31,27 @@ namespace Marketplace.Infrastructure.Data.Migrations
                 type: "nvarchar(60)",
                 maxLength: 60,
                 nullable: false,
-                defaultValue: "",
                 oldClrType: typeof(string),
-                oldType: "nvarchar(60)",
-                oldMaxLength: 60,
-                oldNullable: true);
-
-            migrationBuilder.AddColumn<bool>(
-                name: "Is_Deleted",
-                table: "AspNetUsers",
-                type: "bit",
-                nullable: true);
+                oldType: "nvarchar(max)");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Is_Deleted",
-                table: "AspNetUsers");
+            migrationBuilder.AlterColumn<string>(
+                name: "PhoneNumber",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "LastName",
                 table: "AspNetUsers",
-                type: "nvarchar(60)",
-                maxLength: 60,
-                nullable: true,
+                type: "nvarchar(max)",
+                nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(60)",
                 oldMaxLength: 60);
@@ -58,9 +59,8 @@ namespace Marketplace.Infrastructure.Data.Migrations
             migrationBuilder.AlterColumn<string>(
                 name: "FirstName",
                 table: "AspNetUsers",
-                type: "nvarchar(60)",
-                maxLength: 60,
-                nullable: true,
+                type: "nvarchar(max)",
+                nullable: false,
                 oldClrType: typeof(string),
                 oldType: "nvarchar(60)",
                 oldMaxLength: 60);

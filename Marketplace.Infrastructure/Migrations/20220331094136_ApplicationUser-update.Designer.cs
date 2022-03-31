@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Marketplace.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220331091427_userupdate")]
-    partial class userupdate
+    [Migration("20220331094136_ApplicationUser-update")]
+    partial class ApplicationUserupdate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
