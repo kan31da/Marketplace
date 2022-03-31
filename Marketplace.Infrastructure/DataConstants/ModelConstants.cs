@@ -3,7 +3,7 @@
     public static class ModelConstants
     {
         //APPLICATIONUSER
-        public const int PHONENUMBER_LENTGH = 60;
+
         public const int FIRSTNAME_LENTGH = 60;
         public const int LASTNAME_LENTGH = 60;
 
