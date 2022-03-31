@@ -36,7 +36,7 @@ namespace Marketplace.Infrastructure.Data.Models
         public int Rating { get; set; }
 
         [Required]
-        public Supplier Supplier { get; set; }
+        public Supplier Supplier { get; set; } = new Supplier();
 
         public ICollection<Image> Images { get; set; } = new List<Image>();
     }

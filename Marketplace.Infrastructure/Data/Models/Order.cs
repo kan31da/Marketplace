@@ -10,7 +10,7 @@ namespace Marketplace.Infrastructure.Data.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
-        public OrderStatus OrderStatus { get; set; }
+        public OrderStatus OrderStatus { get; set; } = new OrderStatus();
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
@@ -18,6 +18,6 @@ namespace Marketplace.Infrastructure.Data.Models
         [Column(TypeName = ModelConstants.ORDER_DECIMAL_PRECISION)]
         public decimal OrderPrice { get; set; }
 
-        public Shipper Shipper { get; set; }
+        public Shipper Shipper { get; set; } = new Shipper();
     }
 }

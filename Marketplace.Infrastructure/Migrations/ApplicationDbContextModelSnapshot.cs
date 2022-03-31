@@ -110,7 +110,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.CartItem", b =>
@@ -125,7 +125,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("CartItems");
+                    b.ToTable("CartItems", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Category", b =>
@@ -141,7 +141,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Image", b =>
@@ -162,7 +162,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Order", b =>
@@ -181,7 +181,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.OrderItem", b =>
@@ -196,7 +196,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.OrderStatus", b =>
@@ -216,7 +216,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("OrderStatuses");
+                    b.ToTable("OrderStatuses", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Product", b =>
@@ -254,7 +254,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Products", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Shipper", b =>
@@ -284,7 +284,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("OrderId")
                         .IsUnique();
 
-                    b.ToTable("Shippers");
+                    b.ToTable("Shippers", (string)null);
                 });
 
             modelBuilder.Entity("Marketplace.Infrastructure.Data.Models.Supplier", b =>
@@ -316,7 +316,7 @@ namespace Marketplace.Infrastructure.Data.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Suppliers");
+                    b.ToTable("Suppliers", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
