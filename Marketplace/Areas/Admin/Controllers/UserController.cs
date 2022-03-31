@@ -1,5 +1,6 @@
 ﻿using Marketplace.Core.Constants;
 using Marketplace.Core.Contracts;
+using Marketplace.Core.Models;
 using Marketplace.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -39,6 +40,26 @@ namespace Marketplace.Areas.Admin.Controllers
             var viewModel = await userService.GetUsersToEdit(id);
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, UserEditViewModel model)
+        {
+            if (!ModelState.IsValid || id != model.Id)
+            {
+                return View(model);
+            }
+
+            if (await userService.EditUser(model))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Edit Success";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Changes";
+            }
+
+            return View(model);
         }
 
         public async Task<IActionResult> CreateRole() //string roleName

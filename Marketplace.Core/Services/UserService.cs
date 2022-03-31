@@ -19,6 +19,34 @@ namespace Marketplace.Core.Services
         {
             repo = _repo;
         }
+
+        public async Task<bool> EditUser(UserEditViewModel model)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(model.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.PhoneNumber = model.PhoneNumber;
+                user.Email = model.Email;
+                user.Is_Deleted = bool.Parse(model.Is_Deleted);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;                
+            }
+
+            return true;
+        }
+
         public async Task<IEnumerable<UserListViewModel>> GetUsers()
         {
             return await repo.All<ApplicationUser>()
@@ -36,8 +64,12 @@ namespace Marketplace.Core.Services
 
             return new UserEditViewModel()
             {
+                Id = user.Id,
                 FirstName = user.FirstName,
-                LastName = user.LastName
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Is_Deleted = user.Is_Deleted.ToString()
             };
 
         }
