@@ -13,7 +13,7 @@ namespace Marketplace.Infrastructure.Data.Identity
         [StringLength(ModelConstants.LASTNAME_LENTGH)]
         public string? LastName { get; set; }
 
-        public Nullable<bool> Is_Deleted { get; set; }
+        public bool Is_Deleted { get; set; } = false;
 
         [Required]
         public Cart Cart { get; set; } = new Cart();
