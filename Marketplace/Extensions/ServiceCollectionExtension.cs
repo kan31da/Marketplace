@@ -1,4 +1,6 @@
-﻿using Marketplace.Infrastructure.Data;
+﻿using Marketplace.Core.Contracts;
+using Marketplace.Core.Services;
+using Marketplace.Infrastructure.Data;
 using Marketplace.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +12,7 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>();
+            services.AddScoped<IUserService, UserService>();
 
             return services;
         }

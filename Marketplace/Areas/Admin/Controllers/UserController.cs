@@ -5,10 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Marketplace.Controllers
+namespace Marketplace.Areas.Admin.Controllers
 {
-    //[Authorize]
-    //public class UserController : Controller
     public class UserController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -29,22 +27,22 @@ namespace Marketplace.Controllers
         }
 
         //[Authorize(Roles = UserConstants.Roles.Administrator)]
-        //public async Task<IActionResult> ManageUsers()
-        //{
-        //    var users = await userService.GetUsers();
+        public async Task<IActionResult> ManageUsers()
+        {
+            var users = await userService.GetUsers();
 
-        //    return Ok(users);
-        //}
+            return View(users);
+        }
 
-        //public async Task<IActionResult> CreateRole() //string roleName
-        //{
-        //    //await roleManager.CreateAsync(new IdentityRole
-        //    //{
-        //    //    //Name = roleName
-        //    //    Name = "Administrator"
-        //    //});
+        public async Task<IActionResult> CreateRole() //string roleName
+        {
+            //await roleManager.CreateAsync(new IdentityRole
+            //{
+            //    //Name = roleName
+            //    Name = "Administrator"
+            //});
 
-        //    return Ok();
-        //}
+            return Ok();
+        }
     }
 }
