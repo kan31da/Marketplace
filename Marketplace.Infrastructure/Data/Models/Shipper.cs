@@ -24,8 +24,6 @@ namespace Marketplace.Infrastructure.Data.Models
         public DateTime DeliveryDate { get; set; }
 
 
-        public Guid OrderId { get; set; }
-        [ForeignKey(nameof(OrderId))]
-        public Order Order { get; set; }
+        public ICollection<Order> Order { get; set; } = new List<Order>();
     }
 }
