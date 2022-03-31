@@ -29,5 +29,17 @@ namespace Marketplace.Core.Services
                     Name = $"{u.FirstName} {u.LastName}"
                 }).ToListAsync();
         }
+
+        public async Task<UserEditViewModel> GetUsersToEdit(string id)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(id);
+
+            return new UserEditViewModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName
+            };
+
+        }
     }
 }

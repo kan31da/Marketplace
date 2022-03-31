@@ -34,6 +34,13 @@ namespace Marketplace.Areas.Admin.Controllers
             return View(users);
         }
 
+        public async Task<IActionResult> Edit(string id)
+        {
+            var viewModel = await userService.GetUsersToEdit(id);
+
+            return View(viewModel);
+        }
+
         public async Task<IActionResult> CreateRole() //string roleName
         {
             //await roleManager.CreateAsync(new IdentityRole

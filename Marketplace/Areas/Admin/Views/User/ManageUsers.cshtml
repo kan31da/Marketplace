@@ -3,12 +3,11 @@
 @{
 }
 
-
 <div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Responsive Hover Table</h3>
+                <h3 class="card-title">Manage Users</h3>
                 <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
                         <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
@@ -27,7 +26,7 @@
                         <tr>
                             <th>User</th>
                             <th>Email</th>
-                            <th>Edit</th>
+                            <th><p align="right">Edit</p></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,7 +36,7 @@
                                 <td>@item.Name</td>
                                 <td>@item.Email</td>
                                 <td>
-                                    <button type="button" class="btn btn-block btn-danger btn-flat">Edit</button>
+                                    <a asp-area="admin" asp-action="edit" asp-controller="user" asp-route-id="@item.Id" class="btn btn-danger float-right"> Edit </a>
                                 </td>
                             </tr>
                         }
@@ -47,8 +46,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
