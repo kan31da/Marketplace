@@ -18,6 +18,10 @@ namespace Marketplace.Infrastructure.Data.Models
         [Column(TypeName = ModelConstants.ORDER_DECIMAL_PRECISION)]
         public decimal OrderPrice { get; set; }
 
+        public DateTime OrderDate { get; set; } = DateTime.Now;
+        
+        public DateTime? DeliveryDate { get; set; }
+
         public Shipper Shipper { get; set; }
     }
 }

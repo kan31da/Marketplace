@@ -17,12 +17,7 @@ namespace Marketplace.Infrastructure.Data.Models
 
         [Required]
         [StringLength(ModelConstants.SUPPLIER_PHONE_LENTG)]
-        public string Phone { get; set; }
-
-
-        [Required]
-        public DateTime DeliveryDate { get; set; }
-
+        public string Phone { get; set; }  
 
         public ICollection<Order> Order { get; set; } = new List<Order>();
     }
