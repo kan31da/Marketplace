@@ -5,6 +5,8 @@ using Marketplace.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Marketplace.Areas.Admin.Controllers
 {
@@ -24,12 +26,14 @@ namespace Marketplace.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
+
             return View();
         }
 
         //[Authorize(Roles = UserConstants.Roles.Administrator)]
         public async Task<IActionResult> ManageUsers()
         {
+
             var users = await userService.GetUsers();
 
             return View(users);
@@ -37,6 +41,7 @@ namespace Marketplace.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
+
             var viewModel = await userService.GetUsersToEdit(id);
 
             return View(viewModel);
@@ -45,6 +50,7 @@ namespace Marketplace.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(string id, UserEditViewModel model)
         {
+
             if (!ModelState.IsValid || id != model.Id)
             {
                 return View(model);
@@ -58,6 +64,29 @@ namespace Marketplace.Areas.Admin.Controllers
             {
                 ViewData[MessageConstant.WarningMessage] = "Invalid Changes";
             }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> Roles(string id)
+        {
+
+            var user = await userService.GetApplicationUserById(id);
+
+            var model = new UserRolesViewModel()
+            {
+                Id = user.Id,
+                Name = $"{user.FirstName} {user.LastName}"
+            };
+
+            ViewBag.RoleItems = roleManager.Roles
+                .ToList()
+                .Select(r => new SelectListItem()
+                {
+                    Text = r.Name,
+                    Value = r.Id,
+                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                });
 
             return View(model);
         }
