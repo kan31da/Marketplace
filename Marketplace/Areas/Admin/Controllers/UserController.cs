@@ -73,6 +73,10 @@ namespace Marketplace.Areas.Admin.Controllers
 
             var user = await userService.GetApplicationUserById(id);
 
+            //
+            //if check null user
+            //
+
             var model = new UserRolesViewModel()
             {
                 Id = user.Id,
@@ -91,12 +95,18 @@ namespace Marketplace.Areas.Admin.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Roles()
+        {
+            return Ok();
+        }
+
         public async Task<IActionResult> CreateRole() //string roleName
         {
             //await roleManager.CreateAsync(new IdentityRole
             //{
             //    //Name = roleName
-            //    Name = "Administrator"
+            //    //Name = "Administrator3"
             //});
 
             return Ok();

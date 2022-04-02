@@ -22,26 +22,15 @@
             </select>
         </div>
     </div>
-    <div class="col-sm-6">
-        <div class="form-group">
-            <label>Select Multiple Disabled</label>
-            <select multiple="" class="form-control" disabled="">
-                <option>option 1</option>
-                <option>option 2</option>
-                <option>option 3</option>
-                <option>option 4</option>
-                <option>option 5</option>
-            </select>
-        </div>
-    </div>
 </div>
+
+
 
 <form method="post">
     <div class="card">
         <div class="card-header">
             <h2>Manage User Roles</h2>
-            Add / Remove Roles for @Model.Id
-
+            <h2>Add / Remove Roles for: @Model.Name</h2>
         </div>
         <div class="card-body">
         @*Begin change*@
@@ -49,11 +38,11 @@
             @foreach (var x in(IEnumerable<SelectListItem>)ViewBag.RoleItems)
             {               
                 <div class="form-check m-1">                    
-                    @*<input type="hidden" asp-for="@x.RoleId" name="[@i].RoleId"/>*@
-                    @*<input type="hidden" asp-for="@x.RoleName" name="[@i].RoleName"/>*@
+                    <input type="hidden" asp-for="@x.Value" name="[@i].Value"/>
+                    <input type="hidden" asp-for="@x.Text" name="[@i].Text"/>
                     <input asp-for="@x.Selected" name="[@i].Selected" class="form-check-input" onclick="$(this).val(this.checked ? true : false)"/>
                     <label class="form-check-label" asp-for="@x.Selected">
-                        @*@x.RoleName*@
+                        @x.Text
                     </label>
                 </div>
                 i++;
@@ -63,7 +52,7 @@
         </div>
         <div class="card-footer">
             <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
-            <a asp-page="/Account/UserManagement/UserList" class="btn btn-primary" style="width:auto">Cancel</a>
+            <a asp-page="/admin/user/manageusers" class="btn btn-primary" style="width:auto">Cancel</a>
         </div>
     </div>
 </form>
