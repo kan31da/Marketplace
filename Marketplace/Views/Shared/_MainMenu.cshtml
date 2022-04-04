@@ -1,4 +1,6 @@
-﻿<nav class="mt-2">
+﻿@using Marketplace.Core.Constants
+
+<nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
@@ -8,17 +10,39 @@
                 Products
             </p>
         </a>
-        <a href="/admin/user/manageusers" class="nav-link">
-            <i class="fas fa-user-friends"></i>
-            <p>
-                Manage Users
-            </p>
-        </a>
-        <a href="/admin/user/CreateRole" class="nav-link">
-            <i class="fas fa-user-friends"></i>
-            <p>
-                CreateRole
-            </p>
-        </a>
+
+        @if (User.IsInRole(UserConstants.Roles.Administrator))
+        {
+            <br></br>
+
+            <a class="nav-link">
+                <i class=""></i>
+                <p>
+                    <br></br>
+                    Admin Controller
+                </p>
+            </a>
+
+            <a href="/admin/user/manageusers" class="nav-link">
+                <i class="fas fa-user-friends"></i>
+                <p>
+                    Manage Users
+                </p>
+            </a>
+
+            <a href="/admin/user/CreateRole" class="nav-link">
+                <i class="fas fa-user-friends"></i>
+                <p>
+                    CreateRole
+                </p>
+            </a>
+
+            <a href="gallery.html" class="nav-link">
+                <i class="fas fa-store"></i>
+                <p>
+                    Manage Products
+                </p>
+            </a>
+        }
     </ul>
 </nav>
