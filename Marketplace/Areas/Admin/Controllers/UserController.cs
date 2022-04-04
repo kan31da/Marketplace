@@ -30,7 +30,7 @@ namespace Marketplace.Areas.Admin.Controllers
             return View();
         }
 
-        //[Authorize(Roles = UserConstants.Roles.Administrator)]
+        //[authorize(roles = userconstants.roles.administrator)]
         public async Task<IActionResult> ManageUsers()
         {
 
