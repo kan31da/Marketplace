@@ -30,7 +30,6 @@ namespace Marketplace.Areas.Admin.Controllers
             return View();
         }
 
-        //[authorize(roles = userconstants.roles.administrator)]
         public async Task<IActionResult> ManageUsers()
         {
 
@@ -121,7 +120,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", "Cannot remove user existing roles");
-                    return RedirectToAction(nameof(Roles));
+                    return View();
                 }
 
                 var selectedRoles = userRoles.Where(x => x.Selected).Select(y => y.Text);
@@ -131,7 +130,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 if (!result.Succeeded)
                 {
                     ModelState.AddModelError("", "Cannot add selected roles to user");
-                    return RedirectToAction(nameof(Roles));
+                    return View();
                 }
 
                 var model = new UserRolesViewModel()
