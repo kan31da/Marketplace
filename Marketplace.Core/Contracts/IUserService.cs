@@ -8,6 +8,6 @@ namespace Marketplace.Core.Contracts
         Task<IEnumerable<UserListViewModel>> GetUsers();
         Task<UserEditViewModel> GetUsersToEdit(string id);
         Task<bool> EditUser(UserEditViewModel model);
-        Task<ApplicationUser> GetApplicationUserById(string id);
+        Task<ApplicationUser> GetUserById(string id);
     }
 }

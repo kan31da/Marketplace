@@ -43,7 +43,7 @@ namespace Marketplace.Core.Services
             return true;
         }
 
-        public async Task<ApplicationUser> GetApplicationUserById(string id)
+        public async Task<ApplicationUser> GetUserById(string id)
         {
             return await repo.GetByIdAsync<ApplicationUser>(id);
         }

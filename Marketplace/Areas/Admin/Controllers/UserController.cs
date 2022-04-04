@@ -71,34 +71,83 @@ namespace Marketplace.Areas.Admin.Controllers
         public async Task<IActionResult> Roles(string id)
         {
 
-            var user = await userService.GetApplicationUserById(id);
+            var user = await userService.GetUserById(id);
 
-            //
-            //if check null user
-            //
+            if (user == null)
+            {
+                return RedirectToAction(nameof(ManageUsers));
+            }
 
             var model = new UserRolesViewModel()
             {
-                Id = user.Id,
+                UserId = user.Id,
                 Name = $"{user.FirstName} {user.LastName}"
             };
 
-            ViewBag.RoleItems = roleManager.Roles
-                .ToList()
-                .Select(r => new SelectListItem()
-                {
-                    Text = r.Name,
-                    Value = r.Id,
-                    Selected = userManager.IsInRoleAsync(user, r.Name).Result
-                });
+            RoleItems(user);
 
             return View(model);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Roles()
+        private void RoleItems(ApplicationUser user)
         {
-            return Ok();
+            ViewBag.RoleItems = roleManager.Roles
+                            .ToList()
+                            .Select(r => new SelectListItem()
+                            {
+                                Text = r.Name,
+                                Value = r.Id,
+                                Selected = userManager.IsInRoleAsync(user, r.Name).Result
+                            });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Roles(IEnumerable<SelectListItem> userRoles, string id)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await userService.GetUserById(id);
+
+                if (user == null)
+                {
+                    return View();
+                }
+
+                var roles = await userManager.GetRolesAsync(user);
+
+                var result = await userManager.RemoveFromRolesAsync(user, roles);
+
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", "Cannot remove user existing roles");
+                    return RedirectToAction(nameof(Roles));
+                }
+
+                var selectedRoles = userRoles.Where(x => x.Selected).Select(y => y.Text);
+
+                await userManager.AddToRolesAsync(user, selectedRoles);
+
+                if (!result.Succeeded)
+                {
+                    ModelState.AddModelError("", "Cannot add selected roles to user");
+                    return RedirectToAction(nameof(Roles));
+                }
+
+                var model = new UserRolesViewModel()
+                {
+                    UserId = user.Id,
+                    Name = $"{user.FirstName} {user.LastName}"
+                };
+
+                RoleItems(user);
+
+                ViewData[MessageConstant.SuccessMessage] = "Edit Success";
+                
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(ManageUsers));
         }
 
         public async Task<IActionResult> CreateRole() //string roleName
@@ -110,7 +159,7 @@ namespace Marketplace.Areas.Admin.Controllers
             //});
 
             return Ok();
-        }       
-        
+        }
+
     }
 }
