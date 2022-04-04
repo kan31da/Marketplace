@@ -1,6 +1,5 @@
 ﻿using Marketplace.Infrastructure.DataConstants;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Marketplace.Infrastructure.Data.Models
 {
