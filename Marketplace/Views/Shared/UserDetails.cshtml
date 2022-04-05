@@ -1,0 +1,48 @@
+﻿@using Marketplace.Core.Models
+@model UserEditViewModel
+@{
+    ViewData["Title"] = "User Details";
+}
+
+
+<div class="main-content">
+    <h4 class="mb-0">Email: @Model.Email</h4>
+    <h4 class="mb-0">Name: @Model.FirstName @Model.LastName</h4>
+</div>
+
+<div class="card-body">
+    <form id="edit" method="post" id="dellete">
+        <div class="col-4 text-right">
+            <button id="edit" type="submit" class="btn btn-sm btn-primary">Edit</button>
+            <a href="/" class="btn btn-sm btn-primary" style="width:auto">Cancel</a>
+        </div>
+           <input type="hidden" asp-for="@Model.Id"/>
+           <input type="hidden" asp-for="@Model.Is_Deleted"/>
+           <input type="hidden" asp-for="@Model.Email"/>
+        <div class="pl-lg-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>           
+            <div class="col-lg-6">
+                <div class="form-group focused">
+                    <label class="form-control-label" for="input-first-name">First name</label>
+                    <input asp-for="FirstName" type="text" class="form-control form-control-alternative" placeholder="First name" value=@Model.FirstName aria-required="true">
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group focused">
+                    <label class="form-control-label" for="input-last-name">Last name</label>
+                    <input asp-for="LastName" type="text" class="form-control form-control-alternative" placeholder="Last name" value=@Model.LastName aria-required="true">
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group focused">
+                    <label class="form-control-label" for="input-last-name">Phone Number</label>
+                    <input asp-for="PhoneNumber" type="text" class="form-control form-control-alternative" placeholder="Phone Number" value=@Model.PhoneNumber aria-required="true">
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <partial name="_ValidationScriptsPartial" />
+</div>

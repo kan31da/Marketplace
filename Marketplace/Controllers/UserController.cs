@@ -1,5 +1,6 @@
 ﻿using Marketplace.Core.Constants;
 using Marketplace.Core.Contracts;
+using Marketplace.Core.Models;
 using Marketplace.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,8 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
-    //[Authorize]
-    //public class UserController : Controller
+    [Authorize]
     public class UserController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -26,6 +26,57 @@ namespace Marketplace.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        public async Task<IActionResult> UserDetails()
+        {
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var user = await userService.GetUsersToEdit(currentUser.Id);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserDetails(string id, UserEditViewModel model)
+        {
+
+            if (!ModelState.IsValid || id != model.Id)
+            {
+                return View(model);
+            }
+
+            if (await userService.SelfEditUser(model))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Edit Success";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Changes";
+            }
+
+            return View(model);
+        }
+        
+        public async Task<IActionResult> UserCart()
+        {
+
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var user = await userService.GetUsersToEdit(currentUser.Id);
+
+            return View();
+            //return View(user);
         }
 
         //[Authorize(Roles = UserConstants.Roles.Administrator)]

@@ -33,16 +33,18 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                        <button type="submit" class="nav-link btn btn-link text-dark">Log Out <i class="fas fa-sign-out-alt"></i></button>
-
-                    </form>
-                @*</li>
-                <li class="nav-item">
-                    <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                <li>
+                    <strong><a class="nav-link text-blue" href="User/UserCart">Cart Details<i class="fas fa-cart-arrow-down"></i></a></</strong>
+                </li>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="nav-link btn btn-link text-dark">Log Out <i class="fas fa-sign-out-alt"></i></button>
+                </form>
+                    @*</li>
+                        <li class="nav-item">
+                        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                         <i class="fas fa-expand-arrows-alt"></i>
-                    </a>
-                </li>*@
+                        </a>
+                        </li>*@
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -96,11 +98,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
+            <div class="float-right">
+                <strong>Copyright &copy; 2022-@DateTime.Now.Year <a href="/">Marketplace</a>.</strong> All rights reserved.
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2022-@DateTime.Now.Year <a href="/">Marketplace</a>.</strong> All rights reserved.
+            <strong><a href="/Contacts">Contacts</a></strong>
         </footer>
     </div>
     <!-- ./wrapper -->

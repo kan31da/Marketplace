@@ -13,7 +13,7 @@
             <img src="~/img/mail.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-            <a href="/" class="d-block">@User.Identity?.Name</a>
+            <a href="/user/userdetails" class="d-block">@User.Identity?.Name</a>
         </div>
     </div>
     @*<li class="nav-item">
@@ -34,4 +34,3 @@ else
         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
-</ul>

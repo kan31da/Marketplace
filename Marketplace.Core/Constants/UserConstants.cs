@@ -8,5 +8,12 @@
             public const string User = "User";
             public const string Shipper = "Shipper";
         }
+
+        public static class Area
+        {
+            public const string Admin = "Admin";
+            public const string User = "User";
+
+        }
     }
 }

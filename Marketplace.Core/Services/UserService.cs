@@ -73,5 +73,30 @@ namespace Marketplace.Core.Services
                 Is_Deleted = user.Is_Deleted.ToString()
             };
         }
+
+        public async Task<bool> SelfEditUser(UserEditViewModel model)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(model.Id);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                user.PhoneNumber = model.PhoneNumber;                      
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
