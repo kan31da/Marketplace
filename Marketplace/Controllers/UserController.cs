@@ -14,14 +14,17 @@ namespace Marketplace.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IUserService userService;
+        private readonly ICartService cartService;
 
         public UserController(RoleManager<IdentityRole> _roleManager,
             IUserService _userService,
+            ICartService _cartService,
             UserManager<ApplicationUser> _userManager)
         {
             roleManager = _roleManager;
             userService = _userService;
             userManager = _userManager;
+            cartService = _cartService;
         }
         public IActionResult Index()
         {
@@ -61,23 +64,7 @@ namespace Marketplace.Controllers
             }
 
             return View(model);
-        }
-        
-        public async Task<IActionResult> UserCart()
-        {
-
-            var currentUser = await userManager.GetUserAsync(HttpContext.User);
-
-            if (currentUser == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-
-            var user = await userService.GetUsersToEdit(currentUser.Id);
-
-            return View();
-            //return View(user);
-        }
+        }      
 
         //[Authorize(Roles = UserConstants.Roles.Administrator)]
         //public async Task<IActionResult> ManageUsers()

@@ -9,6 +9,6 @@ namespace Marketplace.Core.Contracts
         Task<UserEditViewModel> GetUsersToEdit(string id);
         Task<bool> EditUser(UserEditViewModel model);
         Task<bool> SelfEditUser(UserEditViewModel model);
-        Task<ApplicationUser> GetUserById(string id);
+        Task<ApplicationUser> GetUserById(string id);       
     }
 }
