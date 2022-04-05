@@ -7,17 +7,21 @@ namespace Marketplace.Infrastructure.Data.Models
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
+        public Guid UserId { get; set; }
 
 
         [Required]
         [StringLength(ModelConstants.SUPPLIER_NAME_LENTGH)]
-        public string Name { get; set; }
+        public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(ModelConstants.SUPPLIER_NAME_LENTGH)]
+        public string LastName { get; set; }
 
         [Required]
         [StringLength(ModelConstants.SUPPLIER_PHONE_LENTG)]
         public string Phone { get; set; }  
 
-        public ICollection<Order> Order { get; set; } = new List<Order>();
+        public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
 }

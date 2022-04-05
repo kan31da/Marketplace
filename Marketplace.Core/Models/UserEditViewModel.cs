@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Marketplace.Core.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marketplace.Core.Models
 {
@@ -12,7 +13,8 @@ namespace Marketplace.Core.Models
 
 
         [Required]
-        [RegularExpression($"^([Tt][Rr][Uu][Ee]|[Ff][Aa][Ll][Ss][Ee])$", ErrorMessage = "Is Deleted has only two options, True or False")]
+        [RegularExpression(GlobalConstants.UserEdit.REGULAREXPRESSION_IS_DELETED,
+            ErrorMessage = ErrorMessages.UserEdit.REGULAREXPRESSION_ERROR_MESSAGES)]
         public string Is_Deleted { get; set; }
     }
 }
