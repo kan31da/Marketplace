@@ -72,7 +72,6 @@ namespace Marketplace.Core.Services
                 PhoneNumber = user.PhoneNumber,
                 Is_Deleted = user.Is_Deleted.ToString()
             };
-
         }
     }
 }

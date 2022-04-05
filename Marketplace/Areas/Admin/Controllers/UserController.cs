@@ -41,9 +41,14 @@ namespace Marketplace.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(string id)
         {
 
-            var viewModel = await userService.GetUsersToEdit(id);
+            if (id == null)
+            {
+                return RedirectToAction(nameof(ManageUsers));
+            }
 
-            return View(viewModel);
+            var user = await userService.GetUsersToEdit(id);
+
+            return View(user);
         }
 
         [HttpPost]
@@ -151,14 +156,14 @@ namespace Marketplace.Areas.Admin.Controllers
 
         public async Task<IActionResult> CreateRole() //string roleName
         {
+
             //await roleManager.CreateAsync(new IdentityRole
             //{
             //    //Name = roleName
-            //    //Name = "Administrator3"
+            //    Name = UserConstants.Roles.Administrator
             //});
 
             return Ok();
         }
-
     }
 }
