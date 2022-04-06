@@ -7,9 +7,6 @@
         public const int FIRSTNAME_LENTGH = 60;
         public const int LASTNAME_LENTGH = 60;
 
-        //CATEGORY
-        public const int LABEL_LENTGH = 40;
-
         //PRODUCT
         public const int NAME_LENTGH = 60;
         public const int DESCRIPTION_LENTGH = 600;

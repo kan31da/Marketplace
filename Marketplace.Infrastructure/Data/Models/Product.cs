@@ -10,9 +10,6 @@ namespace Marketplace.Infrastructure.Data.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
-        public Guid CategoryId { get; set; }        
-
-        [Required]
         [StringLength(ModelConstants.NAME_LENTGH)]
         public string Name { get; set; }
 
@@ -30,8 +27,6 @@ namespace Marketplace.Infrastructure.Data.Models
         [Range(ModelConstants.QUANTITY_MIN, ModelConstants.QUANTITY_MAX)]
         public int Quantity { get; set; }
 
-        public int Rating { get; set; }
-       
         public ICollection<Image> Images { get; set; } = new List<Image>();
     }
 }
