@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
-    [Authorize]
     public class UserController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
@@ -64,7 +63,12 @@ namespace Marketplace.Controllers
             }
 
             return View(model);
-        }      
+        }
+
+        public async Task<IActionResult> UserCart()
+        {
+            return View();
+        }
 
         //[Authorize(Roles = UserConstants.Roles.Administrator)]
         //public async Task<IActionResult> ManageUsers()

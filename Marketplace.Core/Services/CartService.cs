@@ -1,4 +1,5 @@
-﻿using Marketplace.Core.Contracts;
+﻿using Marketplace.Core.Constants;
+using Marketplace.Core.Contracts;
 using Marketplace.Infrastructure.Data.Identity;
 using Marketplace.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -22,15 +23,19 @@ namespace Marketplace.Core.Services
 
         public async Task<int> GetUsersCartCount(string id)
         {
+            if (id == null)
+            {
+                return CartConstants.Cart_Count_Zero;
+            }
 
             var user = await repo.All<ApplicationUser>()
-                .Where(u => u.Id == id)
-                .Include(u => u.Cart)
-                .ThenInclude(u => u.CartItems)
-                .ThenInclude(u => u.Product)
-                .FirstOrDefaultAsync();
+            .Where(u => u.Id == id)
+            .Include(u => u.Cart)
+            .ThenInclude(u => u.CartItems)
+            .ThenInclude(u => u.Product)
+            .FirstOrDefaultAsync();
 
-            return user?.Cart.CartItems.Count() ?? 0;
+            return user?.Cart.CartItems.Count() ?? CartConstants.Cart_Count_Zero;
         }
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class BaseController : Controller
     {
 
