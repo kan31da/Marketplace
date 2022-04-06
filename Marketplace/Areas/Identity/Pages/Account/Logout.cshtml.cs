@@ -30,8 +30,8 @@ namespace Marketplace.Areas.Identity.Pages.Account
             _logger.LogInformation("User logged out.");
             if (returnUrl != null)
             {
-                return RedirectToPage();
-                //return LocalRedirect(returnUrl);
+                //return RedirectToPage();
+                return LocalRedirect(returnUrl);
             }
             else
             {

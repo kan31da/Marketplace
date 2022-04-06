@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using Marketplace.Core.Constants;
 using Marketplace.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -118,6 +119,10 @@ namespace Marketplace.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+                //
+                await _userManager.AddToRoleAsync(user, UserConstants.Roles.User);
+                //
 
                 if (result.Succeeded)
                 {
