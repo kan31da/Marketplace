@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
+    [Authorize(Roles = UserConstants.Roles.User)]
     public class UserController : BaseController
     {
         private readonly RoleManager<IdentityRole> roleManager;
