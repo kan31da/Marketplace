@@ -19,9 +19,7 @@ namespace Marketplace.Infrastructure.Data.Models
 
         [Required]
         [StringLength(ModelConstants.DESCRIPTION_LENTGH)]
-        public string Description { get; set; }
-
-        public DateTime Date { get; set; } = DateTime.Now;
+        public string Description { get; set; }        
 
         [Required]
         [Range(ModelConstants.QUANTITY_MIN, ModelConstants.QUANTITY_MAX)]

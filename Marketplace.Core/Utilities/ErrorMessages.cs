@@ -2,6 +2,10 @@
 {
     public static class ErrorMessages
     {
+        public static class DbError
+        {
+            public const string SAVE_DB_ERROR = "Someting wrong try again";
+        }
         public static class UserEdit
         {
             public const string REGULAREXPRESSION_ERROR_MESSAGES = "Is Deleted has only two options, True or False";

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Controllers
 {
+    [Authorize]
     [Authorize(Roles = UserConstants.Roles.User)]
     public class UserController : BaseController
     {
@@ -70,24 +71,5 @@ namespace Marketplace.Controllers
         {
             return View();
         }
-
-        //[Authorize(Roles = UserConstants.Roles.Administrator)]
-        //public async Task<IActionResult> ManageUsers()
-        //{
-        //    var users = await userService.GetUsers();
-
-        //    return Ok(users);
-        //}
-
-        //public async Task<IActionResult> CreateRole() //string roleName
-        //{
-        //    //await roleManager.CreateAsync(new IdentityRole
-        //    //{
-        //    //    //Name = roleName
-        //    //    Name = "Administrator"
-        //    //});
-
-        //    return Ok();
-        //}
     }
 }

@@ -13,6 +13,7 @@ namespace Marketplace.Areas.Admin.Controllers
         {
             productService = _productService;
         }
+
         public IActionResult Index()
         {
             return View();
@@ -24,6 +25,44 @@ namespace Marketplace.Areas.Admin.Controllers
 
             return View(products);
         }
+        
+        public async Task<IActionResult> EditImages(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            var product = await productService.GetProductToEdit(id);
+
+            if (product == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(string id, ProductToEditViewModel model)
+        {
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (true)
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Edit Success";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Changes";
+            }
+
+            return View(model);
+        }
 
         public async Task<IActionResult> AddProduct()
         {
@@ -33,6 +72,7 @@ namespace Marketplace.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddProduct(AddProductViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -51,4 +91,3 @@ namespace Marketplace.Areas.Admin.Controllers
         }
     }
 }
-

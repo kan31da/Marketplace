@@ -48,6 +48,11 @@ namespace Marketplace.Areas.Admin.Controllers
 
             var user = await userService.GetUsersToEdit(id);
 
+            if (user == null)
+            {
+                return RedirectToAction(nameof(ManageUsers));
+            }
+
             return View(user);
         }
 
@@ -147,7 +152,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 RoleItems(user);
 
                 ViewData[MessageConstant.SuccessMessage] = "Edit Success";
-                
+
                 return View(model);
             }
 
