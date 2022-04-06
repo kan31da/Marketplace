@@ -4,7 +4,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Marketplace.Core.Constants;
 using Marketplace.Infrastructure.Data.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

@@ -11,9 +11,10 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>();
+            services.AddScoped<IApplicatioDbRepository, ApplicatioDbRepository>(); 
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IProductService, ProductService>();
 
             return services;
         }
