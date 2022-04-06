@@ -1,5 +1,6 @@
 ﻿using Marketplace.Core.Constants;
 using Marketplace.Core.Contracts;
+using Marketplace.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Marketplace.Areas.Admin.Controllers
@@ -29,15 +30,25 @@ namespace Marketplace.Areas.Admin.Controllers
             return View();
         }
 
-        //public async Task<IActionResult> AddCategory() //string categoryName
-        //{
-        //    if (await productService.CreateCategory(CategoryConstants.HAND_TOOL))
-        //    {
-        //        return Ok();
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> AddProduct(AddProductViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-        //    return View();
-        //}
+            if (await productService.AddProduct(model))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Тhe product was added successfully";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Parametars";
+            }
+
+            return View(model);
+        }
     }
 }
 

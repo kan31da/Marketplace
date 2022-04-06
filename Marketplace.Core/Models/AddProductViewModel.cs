@@ -1,15 +1,40 @@
-﻿namespace Marketplace.Core.Models
+﻿using Marketplace.Core.Constants;
+using Marketplace.Core.Utilities;
+using System.ComponentModel.DataAnnotations;
+
+namespace Marketplace.Core.Models
 {
     public class AddProductViewModel
     {
-        public string CategoryLabel { get; set; }
+        [Required]
+        [StringLength(ProductConstants.AddProduct.NAME_LENTGH,
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_NAME_LENGTH)]
         public string Name { get; set; }
+        //
+
+        [Required]
+        [Range(ProductConstants.AddProduct.MIN_VALUE,
+            ProductConstants.AddProduct.MAX_VALUE,
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_PRICE)]
         public string Price { get; set; }
+        //
+
+        [Required]
+        [StringLength(ProductConstants.AddProduct.NAME_LENTGH,
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_DESCRIPTION_LENTGH)]
         public string Description { get; set; }
-        public string Quantity { get; set; }      
-        public string FirstImagePath { get; set; }      
-        public string SupplierCompanyName { get; set; }      
-        public string SupplierPhone { get; set; }
-        public string SupplierAddress { get; set; }
+        //
+
+        [Required]
+        [Range(ProductConstants.AddProduct.QUANTITY_MIN,
+            ProductConstants.AddProduct.QUANTITY_MAX,
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_QUANTITY_LENTGH)]
+        public string Quantity { get; set; }
+        //
+
+        [Required]
+        [StringLength(ProductConstants.AddProduct.IMAGE_PATH_LENTGH,
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_NAME_LENGTH)]
+        public string FirstImagePath { get; set; }
     }
 }

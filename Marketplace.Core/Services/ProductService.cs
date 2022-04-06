@@ -20,23 +20,17 @@ namespace Marketplace.Core.Services
             repo = _repo;
         }
 
-        public async Task<IEnumerable<ProductListViewModel>> AddProduct()
+        public async Task<bool> AddProduct(AddProductViewModel model)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> CreateCategory(string categoryLabel)
-        {
-
-            var caregory = new Category()
+            var product = new Product()
             {
-                Label = categoryLabel
-            };            
+                
+            };
 
             try
             {
 
-                repo.AddAsync<Category>(caregory);
+                repo.AddAsync<Product>(product);
 
                 await repo.SaveChangesAsync();
             }
@@ -53,8 +47,7 @@ namespace Marketplace.Core.Services
             return await repo.All<Product>()
                  .Select(p => new ProductListViewModel()
                  {
-                     Id = p.Id.ToString(),
-                     Category = p.Category.Label,
+                     Id = p.Id.ToString(),                     
                      Name = p.Name,
                      Price = p.Price.ToString(),
                      Quantity = p.Price.ToString()
