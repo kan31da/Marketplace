@@ -71,8 +71,6 @@ namespace Marketplace.Core.Services
                  {
                      Id = p.Id.ToString(),
                      Name = p.Name,
-                     Price = p.Price.ToString(),
-                     Quantity = p.Price.ToString(),
                      Images = p.Images.Select(i => new ImageViewModel()
                      {
                          Id = i.Id.ToString(),

@@ -25,7 +25,7 @@ namespace Marketplace.Areas.Admin.Controllers
 
             return View(products);
         }
-        
+
         public async Task<IActionResult> EditImages(string id)
         {
             if (id == null)
@@ -88,6 +88,17 @@ namespace Marketplace.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImage(ProductToEditViewModel model)
+        {
+            return View();
+        }
+
+        public async Task<IActionResult> DeleteImage(string id, string imageToDelete)
+        {
+            return View();
         }
     }
 }
