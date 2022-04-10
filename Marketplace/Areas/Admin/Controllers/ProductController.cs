@@ -43,6 +43,13 @@ namespace Marketplace.Areas.Admin.Controllers
             return View(product);
         }
 
+
+        public async Task<IActionResult> Edit(string id)
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Edit(string id, ProductToEditViewModel model)
         {

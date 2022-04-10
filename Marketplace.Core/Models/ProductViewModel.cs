@@ -20,16 +20,6 @@ namespace Marketplace.Core.Models
         [Required]
         [Range(ModelConstants.QUANTITY_MIN, ModelConstants.QUANTITY_MAX)]
         public int Quantity { get; set; }
-
-        public int Rating { get; set; }
-
-        [Required]
-        public string SupplierCompanyName { get; set; }
-
-        [Required]
-        public string SupplierPhone { get; set; }
-        
-        [Required]
-        public string SupplierAddress { get; set; }
+       
     }
 }
