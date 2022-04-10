@@ -100,12 +100,40 @@ namespace Marketplace.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddImage(ProductToEditViewModel model)
         {
-            return View();
+            if (model.Id == null || model.Name == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            if (await productService.AddImage(model.Id, model.Name))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Тhe image was added successfully";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Parametars";
+            }
+
+            return RedirectToAction(nameof(EditImages), "Product", new { model.Id });
         }
 
         public async Task<IActionResult> DeleteImage(string id, string imageToDelete)
         {
-            return View();
+            if (id == null || imageToDelete == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            if (await productService.DeleteImage(id, imageToDelete))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Тhe image was Delete successfully";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Parametars";
+            }
+
+            return RedirectToAction(nameof(EditImages), "Product", new { id });
         }
     }
 }

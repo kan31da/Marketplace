@@ -9,11 +9,22 @@
     <br></br>
 </div>
 
-@foreach (var item in Model.Images)
-{
-    <img src="@item.ImagePath" alt="none" width="50" height="50">
-    <a asp-area="admin" asp-action="deleteimage" asp-controller="product" asp-route-id="@Model.Id" asp-route-imageToDelete="@item.Id" class="btn btn-info btn-danger float-right"> Delete Image </a>
-}
+<table class="table table-hover text-nowrap">
+    <tbody>
+        @foreach (var item in Model.Images)
+        {
+            <tr>
+                <td>
+                    <img src="@item.ImagePath" alt="none" width="50" height="50">
+                    <a asp-area="admin" asp-action="deleteimage" asp-controller="product" asp-route-id="@Model.Id" asp-route-imageToDelete="@item.Id" class="btn btn-info btn-danger float-right"> Delete Image </a>
+
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
 
 <br></br>
 <div class="card-body">

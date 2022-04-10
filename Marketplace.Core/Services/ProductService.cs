@@ -21,6 +21,38 @@ namespace Marketplace.Core.Services
             repo = _repo;
         }
 
+        public async Task<bool> AddImage(string id, string imagePath)
+        {
+            var product = await repo.All<Product>()
+                .Where(p => p.Id.ToString() == id)
+                .Include(p => p.Images)
+                .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                var image = new Image() { ImagePath = imagePath };
+
+                await repo.AddAsync<Image>(image);
+
+                product.Images.Add(image);
+
+                repo.Update<Product>(product);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<bool> AddProduct(AddProductViewModel model)
         {
 
@@ -48,6 +80,38 @@ namespace Marketplace.Core.Services
             return true;
         }
 
+        public async Task<bool> DeleteImage(string id, string imageToDelete)
+        {
+            var product = await repo.All<Product>()
+               .Where(p => p.Id.ToString() == id)
+               .Include(p => p.Images)
+               .FirstOrDefaultAsync();
+
+            var image = await repo.All<Image>()
+              .Where(p => p.Id.ToString() == imageToDelete)
+              .FirstOrDefaultAsync();
+
+            if (product == null || image == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                product.Images.Remove(image);
+
+                repo.Update<Product>(product);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<IEnumerable<ProductListViewModel>> GetProducts()
         {
             return await repo.All<Product>()
@@ -56,7 +120,7 @@ namespace Marketplace.Core.Services
                      Id = p.Id.ToString(),
                      Name = p.Name,
                      Price = p.Price.ToString(),
-                     Quantity = p.Price.ToString(),
+                     Quantity = p.Quantity.ToString(),
                      Image = p.Images.Select(i => i.ImagePath).First() ?? ""
 
                  }).ToListAsync();
