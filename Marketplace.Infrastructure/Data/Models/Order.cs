@@ -22,6 +22,6 @@ namespace Marketplace.Infrastructure.Data.Models
         
         public DateTime? DeliveryDate { get; set; }
 
-        public Shipper Shipper { get; set; }
+        public Shipper? Shipper { get; set; }
     }
 }

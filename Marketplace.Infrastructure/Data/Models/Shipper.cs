@@ -7,6 +7,8 @@ namespace Marketplace.Infrastructure.Data.Models
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
+
+        [Required]
         public Guid UserId { get; set; }
 
 
