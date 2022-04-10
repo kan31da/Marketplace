@@ -12,6 +12,8 @@ namespace Marketplace.Infrastructure.Data.Identity
 
         [StringLength(ModelConstants.LASTNAME_LENTGH)]
         public string? LastName { get; set; }
+
+        [StringLength(ModelConstants.PHONE_LENTGH)]
         public string? PhoneNumber { get; set; }
 
         public bool Is_Deleted { get; set; } = false;

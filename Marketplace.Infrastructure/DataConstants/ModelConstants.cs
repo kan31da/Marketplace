@@ -6,6 +6,7 @@
 
         public const int FIRSTNAME_LENTGH = 60;
         public const int LASTNAME_LENTGH = 60;
+        public const int PHONE_LENTGH = 60;
 
         //PRODUCT
         public const int NAME_LENTGH = 60;
@@ -18,6 +19,9 @@
 
         //ORDER
         public const string ORDER_DECIMAL_PRECISION = "decimal(14,2)";
+
+        //ORDERSTATUS
+        public const int ORDERSTATUS_LENTGH = 60;
 
         //IMAGE
         public const int IMAGE_PATH_LENTGH = 600;
