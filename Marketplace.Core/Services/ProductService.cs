@@ -28,7 +28,7 @@ namespace Marketplace.Core.Services
                 .Include(p => p.Images)
                 .FirstOrDefaultAsync();
 
-            if (product == null)
+            if (product == null || imagePath == null)
             {
                 return false;
             }
@@ -62,8 +62,8 @@ namespace Marketplace.Core.Services
                 {
                     Description = model.Description,
                     Name = model.Name,
-                    Price = decimal.Parse(model.Price),
-                    Quantity = int.Parse(model.Quantity)
+                    Price = model.Price,
+                    Quantity = model.Quantity
                 };
 
                 product.Images.Add(new Image() { ImagePath = model.FirstImagePath });
@@ -88,7 +88,7 @@ namespace Marketplace.Core.Services
                .FirstOrDefaultAsync();
 
             var image = await repo.All<Image>()
-              .Where(p => p.Id.ToString() == imageToDelete)
+              .Where(i => i.Id.ToString() == imageToDelete)
               .FirstOrDefaultAsync();
 
             if (product == null || image == null)
@@ -101,6 +101,40 @@ namespace Marketplace.Core.Services
                 product.Images.Remove(image);
 
                 repo.Update<Product>(product);
+
+                await repo.DeleteAsync<Image>(image.Id);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public async Task<bool> DeleteProduct(string id)
+        {
+            var product = await repo.All<Product>()
+              .Where(p => p.Id.ToString() == id)
+              .Include(p => p.Images)
+              .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            var images = product.Images.ToList();
+
+            try
+            {
+                product.Images.Clear();
+
+                await repo.DeleteAsync<Product>(product.Id);
+
+                repo.DeleteRange<Image>(images);
 
                 await repo.SaveChangesAsync();
             }
@@ -126,12 +160,29 @@ namespace Marketplace.Core.Services
                  }).ToListAsync();
         }
 
-        public async Task<ProductToEditViewModel> GetProductToEdit(string id)
+        public async Task<ProductEditViewModel> GetProductToEdit(string id)
+        {
+            var product = await repo.All<Product>()
+              .Where(p => p.Id.ToString() == id)
+               .Select(p => new ProductEditViewModel()
+               {
+                   Id = p.Id.ToString(),
+                   Name = p.Name,
+                   Description = p.Description,
+                   Price = p.Price,
+                   Quantity = p.Quantity
+
+               }).FirstOrDefaultAsync();
+
+            return product;
+        }
+
+        public async Task<ProductToEditImagesViewModel> GetProductToEditImages(string id)
         {
 
             var product = await repo.All<Product>()
                 .Where(p => p.Id.ToString() == id)
-                 .Select(p => new ProductToEditViewModel()
+                 .Select(p => new ProductToEditImagesViewModel()
                  {
                      Id = p.Id.ToString(),
                      Name = p.Name,
@@ -144,6 +195,36 @@ namespace Marketplace.Core.Services
                  }).FirstOrDefaultAsync();
 
             return product;
+        }
+
+        public async Task<bool> ProductToEdit(ProductEditViewModel model)
+        {
+            var product = await repo.All<Product>()
+             .Where(p => p.Id.ToString() == model.Id)
+             .FirstOrDefaultAsync();
+
+            if (product == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                product.Name = model.Name;
+                product.Price = model.Price;
+                product.Quantity = model.Quantity;
+                product.Description = model.Description;
+
+                repo.Update<Product>(product);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

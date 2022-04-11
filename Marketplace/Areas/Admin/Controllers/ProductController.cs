@@ -33,7 +33,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 return RedirectToAction(nameof(ManageProducts));
             }
 
-            var product = await productService.GetProductToEdit(id);
+            var product = await productService.GetProductToEditImages(id);
 
             if (product == null)
             {
@@ -46,12 +46,24 @@ namespace Marketplace.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(string id)
         {
-            return View();
+            if (id == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            var product = await productService.GetProductToEdit(id);
+
+            if (product == null)
+            {
+                return RedirectToAction(nameof(ManageProducts));
+            }
+
+            return View(product);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(string id, ProductToEditViewModel model)
+        public async Task<IActionResult> Edit(ProductEditViewModel model)
         {
 
             if (!ModelState.IsValid)
@@ -59,7 +71,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 return View(model);
             }
 
-            if (true)
+            if (await productService.ProductToEdit(model))
             {
                 ViewData[MessageConstant.SuccessMessage] = "Edit Success";
             }
@@ -69,6 +81,23 @@ namespace Marketplace.Areas.Admin.Controllers
             }
 
             return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+
+            if (await productService.DeleteProduct(id))
+            {
+                return RedirectToAction(nameof(ManageProducts)
+                    , ViewData[MessageConstant.SuccessMessage] = "Delete Success");
+            }
+            else
+            {
+                return RedirectToAction(nameof(ManageProducts)
+                    , ViewData[MessageConstant.WarningMessage] = "Invalid Delete");
+            }
         }
 
         public async Task<IActionResult> AddProduct()
@@ -98,24 +127,18 @@ namespace Marketplace.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddImage(ProductToEditViewModel model)
+        public async Task<IActionResult> AddImage(ProductToEditImagesViewModel model)
         {
             if (model.Id == null || model.Name == null)
             {
                 return RedirectToAction(nameof(ManageProducts));
             }
 
-            if (await productService.AddImage(model.Id, model.Name))
-            {
-                ViewData[MessageConstant.SuccessMessage] = "Тhe image was added successfully";
-            }
-            else
-            {
-                ViewData[MessageConstant.WarningMessage] = "Invalid Parametars";
-            }
+            await productService.AddImage(model.Id, model.Name);
 
             return RedirectToAction(nameof(EditImages), "Product", new { model.Id });
         }
+
 
         public async Task<IActionResult> DeleteImage(string id, string imageToDelete)
         {
@@ -124,14 +147,7 @@ namespace Marketplace.Areas.Admin.Controllers
                 return RedirectToAction(nameof(ManageProducts));
             }
 
-            if (await productService.DeleteImage(id, imageToDelete))
-            {
-                ViewData[MessageConstant.SuccessMessage] = "Тhe image was Delete successfully";
-            }
-            else
-            {
-                ViewData[MessageConstant.WarningMessage] = "Invalid Parametars";
-            }
+            await productService.DeleteImage(id, imageToDelete);
 
             return RedirectToAction(nameof(EditImages), "Product", new { id });
         }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Marketplace.Core.Models
 {
-    public class ProductToEditViewModel
+    public class ProductToEditImagesViewModel
     {
         public string Id { get; set; }
 

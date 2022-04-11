@@ -12,7 +12,7 @@
         public const int NAME_LENTGH = 60;
         public const int DESCRIPTION_LENTGH = 600;
 
-        public const int QUANTITY_MIN = 0;
+        public const int QUANTITY_MIN = 1;
         public const int QUANTITY_MAX = 1000000;
 
         public const string PRODUCT_DECIMAL_PRECISION = "decimal(7,2)";

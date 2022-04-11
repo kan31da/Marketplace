@@ -16,11 +16,11 @@ namespace Marketplace.Core.Models
         [Range(ProductConstants.AddProduct.MIN_VALUE,
             ProductConstants.AddProduct.MAX_VALUE,
             ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_PRICE)]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
         //
 
         [Required]
-        [StringLength(ProductConstants.AddProduct.NAME_LENTGH,
+        [StringLength(ProductConstants.AddProduct.DESCRIPTION_LENTGH,
             ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_DESCRIPTION_LENTGH)]
         public string Description { get; set; }
         //
@@ -29,12 +29,12 @@ namespace Marketplace.Core.Models
         [Range(ProductConstants.AddProduct.QUANTITY_MIN,
             ProductConstants.AddProduct.QUANTITY_MAX,
             ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_QUANTITY_LENTGH)]
-        public string Quantity { get; set; }
+        public int Quantity { get; set; }
         //
 
         [Required]
         [StringLength(ProductConstants.AddProduct.IMAGE_PATH_LENTGH,
-            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_NAME_LENGTH)]
+            ErrorMessage = ErrorMessages.AddProduct.INVALID_PRODUCT_IMAGE_LENGTH)]
         public string FirstImagePath { get; set; }
     }
 }
