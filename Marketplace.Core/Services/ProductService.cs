@@ -155,7 +155,7 @@ namespace Marketplace.Core.Services
                      Name = p.Name,
                      Price = p.Price.ToString(),
                      Quantity = p.Quantity.ToString(),
-                     Image = p.Images.Select(i => i.ImagePath).First() ?? ""
+                     Image = p.Images.Select(i => i.ImagePath).FirstOrDefault() ?? ""
 
                  }).ToListAsync();
         }

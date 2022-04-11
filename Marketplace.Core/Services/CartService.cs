@@ -35,7 +35,7 @@ namespace Marketplace.Core.Services
             .ThenInclude(u => u.Product)
             .FirstOrDefaultAsync();
 
-            return user?.Cart.CartItems.Count() ?? CartConstants.Cart_Count_Zero;
+            return user?.Cart.CartItems.Select(i => i.Product.Quantity).Count() ?? CartConstants.Cart_Count_Zero;
         }
     }
 }

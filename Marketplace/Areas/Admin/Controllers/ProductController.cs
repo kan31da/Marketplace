@@ -129,9 +129,14 @@ namespace Marketplace.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddImage(ProductToEditImagesViewModel model)
         {
-            if (model.Id == null || model.Name == null)
+            if (model.Id == null)
             {
                 return RedirectToAction(nameof(ManageProducts));
+            }
+
+            if (model.Name == null)
+            {
+                return RedirectToAction(nameof(EditImages), "Product", new { model.Id });
             }
 
             await productService.AddImage(model.Id, model.Name);

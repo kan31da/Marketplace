@@ -15,12 +15,11 @@
         {
             <tr>
                 <td>
-                    <img src="@item.ImagePath" alt="none" width="50" height="50">
+                    <img src="@item.ImagePath" alt="none" width="80" height="auto">
                     <a asp-area="admin" asp-action="deleteimage" asp-controller="product" asp-route-id="@Model.Id" asp-route-imageToDelete="@item.Id" class="btn btn-info btn-danger float-right"> Delete Image </a>
-
+                    <p><a href="@item.ImagePath">Open image.</a></p>
                 </td>
             </tr>
-
         }
     </tbody>
 </table>
