@@ -77,6 +77,8 @@ namespace Marketplace.Core.Services
                     await repo.AddAsync<CartProduct>(addProduct);
 
                     user.Cart.Products.Add(addProduct);
+
+                    product.Quantity--;
                 }
 
 
