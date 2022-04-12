@@ -47,6 +47,10 @@
         </div>
         <button id="productSubmit" type="submit" asp-route-id="@Model.Id" class="btn btn-info btn-info float-left">Edit Quantity</button>
         <button id="productSubmit" asp-route-productId="@Model.Id" asp-action="DeleteProductCart" type="submit" class="btn btn-info btn-danger float-right">Delete Product</button>
+        <div class="d-flex justify-content-center">
+            <a asp-action="index" asp-controller="product" class="btn btn-info btn-outline-warning float-center"> Cansel </a>
+        </div>
     </form>
     <partial name="_ValidationScriptsPartial" />
 </div>
+

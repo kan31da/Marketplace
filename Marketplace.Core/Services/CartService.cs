@@ -187,6 +187,11 @@ namespace Marketplace.Core.Services
            .ThenInclude(u => u.Products)
            .FirstOrDefaultAsync();
 
+            if (user == null)
+            {
+                return null;
+            }
+
             return user.Cart.Products
                   .Select(p => new CartProductsViewModel()
                   {
@@ -207,6 +212,11 @@ namespace Marketplace.Core.Services
                 .Include(u => u.Cart)
                 .ThenInclude(u => u.Products)
                 .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
 
             var product = user.Cart.Products
                 .Where(p => p.Id.ToString() == productId)
@@ -238,6 +248,79 @@ namespace Marketplace.Core.Services
                 .FirstOrDefaultAsync();
 
             return user?.Cart.Products.Select(p => p.Quantity).Sum() ?? CartConstants.Cart_Count_Zero;
+        }
+
+        public async Task<OrderProductViewModel> GetUsersCurrentOrder(string userId)
+        {
+            var user = await repo.All<ApplicationUser>()
+             .Where(u => u.Id == userId)
+             .Include(u => u.Cart)
+             .ThenInclude(u => u.Products)
+             .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var order = new OrderProductViewModel()
+            {
+                Products = await GetCartProducts(userId),
+                TotalPrice = user.Cart.Products.Sum(p => p.Quantity * p.Price)
+            };
+
+            return order;
+        }
+
+        public async Task<bool> OrderProductCart(string userId, string deliveryAddress)
+        {
+            var user = await repo.All<ApplicationUser>()
+              .Where(u => u.Id == userId)
+              .Include(u => u.Cart)
+              .ThenInclude(u => u.Products)
+              .FirstOrDefaultAsync();
+
+            if (user == null || deliveryAddress == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                var order = new Order()
+                {
+                    OrderPrice = user.Cart.Products.Sum(p => p.Quantity * p.Price),
+                    DeliveryAddress = deliveryAddress,
+                    OrderStatus = new OrderStatus()
+                    {
+                        Status = GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS
+                    },
+                    Products = user.Cart.Products.Select(p => new OrderProduct()
+                    {
+                        Id = p.Id,
+                        ImagePath = p.ImagePath,
+                        Name = p.Name,
+                        ProductId = p.ProductId,
+                        Price = p.Price,
+                        Quantity = p.Quantity
+                    }).ToList()
+
+                };
+
+                await repo.AddAsync(order);
+
+                user.Orders.Add(order);
+
+                user.Cart.Products.Clear();
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -1,0 +1,62 @@
+﻿@using Marketplace.Core.Models
+@model OrderProductViewModel
+@{
+    ViewData["Title"] = "Order Products";
+    var products = Model.Products;
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Image</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Products)
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.Price</td>
+                                <td>@item.Quantity</td>
+                                <td> <img src="@item.Image" alt="none" width="80" height="auto"> </td>
+                                <td>@item.TotalPrice</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <p><h3>Price for order:  @Model.Products.Sum(m=>m.Price * m.Quantity) </p>
+    </div>
+</div>
+
+<div class="card-body">
+    <form id="edit" method="post" id="dellete">
+        <div class="col-4 text-right">
+        </div>
+        <input type="hidden" asp-for="@products" />
+        <input type="hidden" asp-for="@Model.TotalPrice" />
+        <div class="pl-lg-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-lg-6">
+                <div class="form-group focused">
+                    <label class="form-control-label" for="input-first-name">Delivery Address</label>
+                    <input asp-for="DeliveryAddress" type="text" class="form-control form-control-alternative" placeholder="Delivery Address" value=@Model.DeliveryAddress aria-required="true">
+                    <span asp-validation-for="DeliveryAddress" class="text-danger"></span>
+                </div>
+                <button id="Order" type="submit" class="btn btn-info btn-info float-left"> Confirm Order</button>
+            </div>
+        </div>
+        <a asp-action="index" asp-controller="product" class="btn btn-info btn-outline-warning float-right"> Cansel </a>
+    </form>
+    <partial name="_ValidationScriptsPartial" />
+</div>

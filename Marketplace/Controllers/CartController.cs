@@ -75,7 +75,7 @@ namespace Marketplace.Controllers
                 ViewData[MessageConstant.WarningMessage] = "Minimum Quantity is 1";
                 return View(product);
             }
-            
+
             if (await cartService.CartProductToEdit(currentUser.Id, model.Id, model.Quantity))
             {
                 return RedirectToAction("UserCart", "User");
@@ -99,6 +99,53 @@ namespace Marketplace.Controllers
             }
 
             return RedirectToAction("UserCart", "User");
+        }
+
+        public async Task<IActionResult> UserOrder()
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Redirect("/");
+            }
+
+            var order = await cartService.GetUsersCurrentOrder(currentUser.Id);
+
+            if (order == null)
+            {
+                return Redirect("/");
+            }
+
+            return View(order);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UserOrder(OrderProductViewModel model)
+        {
+            var currentUser = await userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return Redirect("/");
+            }
+
+            var modelOrder = await cartService.GetUsersCurrentOrder(currentUser.Id);
+
+            model.Products = modelOrder.Products;
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var order = await cartService.OrderProductCart(currentUser.Id, model.DeliveryAddress);
+
+            return Redirect("/");
+        }
+        public async Task<IActionResult> UserOrdes()
+        {
+            return Ok();
         }
     }
 }

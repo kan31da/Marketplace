@@ -13,5 +13,15 @@
             public const int ZERO_QUANTITY = 0;
             public const int QUANTITY_MAX = 1000000;
         }
+
+        public static class DeliveryAddress
+        {
+            public const int MAX_LENTH = 200;
+        }
+
+        public static class Order
+        {
+            public const string ORDER_STATUS_IN_PROGRESS = "In progress";
+        }
     }
 }
