@@ -146,6 +146,28 @@ namespace Marketplace.Core.Services
             return true;
         }
 
+        public async Task<ProductDetailsViewModel> GetProductDetails(string id)
+        {
+            var product = await repo.All<Product>()
+              .Where(p => p.Id.ToString() == id)
+              .Select(p => new ProductDetailsViewModel()
+              {
+                  Id = p.Id.ToString(),
+                  Name = p.Name,
+                  Description = p.Description,
+                  Price = p.Price,
+                  Quantity = p.Quantity,
+                  Images = p.Images.Select(i => new ImageViewModel()
+                  {
+                      Id = i.Id.ToString(),
+                      ImagePath = i.ImagePath
+                  })
+
+              }).FirstOrDefaultAsync();
+
+            return product;
+        }
+
         public async Task<IEnumerable<ProductListViewModel>> GetProducts()
         {
             return await repo.All<Product>()

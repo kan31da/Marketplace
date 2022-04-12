@@ -3,3 +3,66 @@
 @{
     ViewData["Title"] = "Details Product";
 }
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Available Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>@Model.Name</th>
+                            <th>@Model.Price</th>
+                            <th>@Model.Quantity</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br></br>
+
+<h3>Product Description</h3>
+<div class="card">
+    <div class="card-body table-responsive p-0">
+        <table class="table table-hover text-nowrap">
+            <thead>
+                <tr>
+                    <text>@Model.Description</text>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<br></br>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <tbody>
+                        @foreach (var item in @Model.Images)
+                        {
+                            <tr> <img src="@item.ImagePath" width="200" height="auto"> </tr>
+                            <a href="@item.ImagePath">Open image.</a>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <a asp-action="addproducttocart" asp-controller="cart" asp-route-productId="@Model.Id" class="btn btn-info btn-outline float-right"> Add to Cart </a>
+    <a asp-action="index" asp-controller="product" class="btn btn-info btn-outline-warning float-right"> Cansel </a>
+</div>

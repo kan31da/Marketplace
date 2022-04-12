@@ -8,6 +8,7 @@ namespace Marketplace.Core.Contracts
         Task<IEnumerable<ProductListViewModel>> GetProductsWithZeroQuantity();
         Task<ProductToEditImagesViewModel> GetProductToEditImages(string id);
         Task<ProductEditViewModel> GetProductToEdit(string id);
+        Task<ProductDetailsViewModel> GetProductDetails(string id);
         Task<bool> ProductToEdit(ProductEditViewModel model);
         Task<bool> AddImage(string id, string imagePath);
         Task<bool> DeleteProduct(string id);

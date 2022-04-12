@@ -20,8 +20,15 @@ namespace Marketplace.Controllers
         }
 
         public async Task<IActionResult> Details(string id)
-        {           
-            return View();
+        {
+            var product = await productService.GetProductDetails(id);
+
+            if (product == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(product);
         }
     }
 }
