@@ -26,6 +26,13 @@ namespace Marketplace.Areas.Admin.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> ManageProductsWithZeroQuantity()
+        {
+            var products = await productService.GetProductsWithZeroQuantity();
+
+            return View(products);
+        }
+
         public async Task<IActionResult> EditImages(string id)
         {
             if (id == null)

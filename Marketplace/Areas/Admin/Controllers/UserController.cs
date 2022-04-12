@@ -164,8 +164,8 @@ namespace Marketplace.Areas.Admin.Controllers
 
             //await roleManager.CreateAsync(new IdentityRole
             //{
-            //    //Name = roleName
-            //    Name = UserConstants.Roles.Administrator
+            //    //    Name = roleName
+            //    Name = UserConstants.Roles.User
             //});
 
             return Ok();

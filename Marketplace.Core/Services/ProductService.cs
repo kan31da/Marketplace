@@ -149,30 +149,46 @@ namespace Marketplace.Core.Services
         public async Task<IEnumerable<ProductListViewModel>> GetProducts()
         {
             return await repo.All<Product>()
-                 .Select(p => new ProductListViewModel()
-                 {
-                     Id = p.Id.ToString(),
-                     Name = p.Name,
-                     Price = p.Price.ToString(),
-                     Quantity = p.Quantity.ToString(),
-                     Image = p.Images.Select(i => i.ImagePath).FirstOrDefault() ?? ""
+                .Where(p => p.Quantity > GlobalConstants.CartProduct.ZERO_QUANTITY)
+                .Select(p => new ProductListViewModel()
+                {
+                    Id = p.Id.ToString(),
+                    Name = p.Name,
+                    Price = p.Price.ToString(),
+                    Quantity = p.Quantity.ToString(),
+                    Image = p.Images.Select(i => i.ImagePath).FirstOrDefault() ?? ""
 
-                 }).ToListAsync();
+                }).ToListAsync();
+        }
+
+        public async Task<IEnumerable<ProductListViewModel>> GetProductsWithZeroQuantity()
+        {
+            return await repo.All<Product>()
+                .Where(p => p.Quantity == GlobalConstants.CartProduct.ZERO_QUANTITY)
+                .Select(p => new ProductListViewModel()
+                {
+                    Id = p.Id.ToString(),
+                    Name = p.Name,
+                    Price = p.Price.ToString(),
+                    Quantity = p.Quantity.ToString(),
+                    Image = p.Images.Select(i => i.ImagePath).FirstOrDefault() ?? ""
+
+                }).ToListAsync();
         }
 
         public async Task<ProductEditViewModel> GetProductToEdit(string id)
         {
             var product = await repo.All<Product>()
               .Where(p => p.Id.ToString() == id)
-               .Select(p => new ProductEditViewModel()
-               {
-                   Id = p.Id.ToString(),
-                   Name = p.Name,
-                   Description = p.Description,
-                   Price = p.Price,
-                   Quantity = p.Quantity
+              .Select(p => new ProductEditViewModel()
+              {
+                  Id = p.Id.ToString(),
+                  Name = p.Name,
+                  Description = p.Description,
+                  Price = p.Price,
+                  Quantity = p.Quantity
 
-               }).FirstOrDefaultAsync();
+              }).FirstOrDefaultAsync();
 
             return product;
         }
@@ -182,17 +198,17 @@ namespace Marketplace.Core.Services
 
             var product = await repo.All<Product>()
                 .Where(p => p.Id.ToString() == id)
-                 .Select(p => new ProductToEditImagesViewModel()
-                 {
-                     Id = p.Id.ToString(),
-                     Name = p.Name,
-                     Images = p.Images.Select(i => new ImageViewModel()
-                     {
-                         Id = i.Id.ToString(),
-                         ImagePath = i.ImagePath
-                     })
+                .Select(p => new ProductToEditImagesViewModel()
+                {
+                    Id = p.Id.ToString(),
+                    Name = p.Name,
+                    Images = p.Images.Select(i => new ImageViewModel()
+                    {
+                        Id = i.Id.ToString(),
+                        ImagePath = i.ImagePath
+                    })
 
-                 }).FirstOrDefaultAsync();
+                }).FirstOrDefaultAsync();
 
             return product;
         }

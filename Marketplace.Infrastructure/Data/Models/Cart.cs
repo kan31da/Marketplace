@@ -9,7 +9,7 @@ namespace Marketplace.Infrastructure.Data.Models
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
 
-        public ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+        public ICollection<CartProduct> Products { get; set; } = new List<CartProduct>();
 
         public string ApplicationUserId { get; set; }
 

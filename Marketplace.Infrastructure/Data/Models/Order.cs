@@ -12,11 +12,15 @@ namespace Marketplace.Infrastructure.Data.Models
         [Required]
         public OrderStatus OrderStatus { get; set; } = new OrderStatus();
 
-        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public ICollection<OrderProduct> Products { get; set; } = new List<OrderProduct>();
 
         [Required]
         [Column(TypeName = ModelConstants.ORDER_DECIMAL_PRECISION)]
         public decimal OrderPrice { get; set; }
+
+        [Required]
+        [StringLength(ModelConstants.DELIVERY_ADDRESS_LENTGH)]
+        public string DeliveryAddress { get; set; }
 
         public DateTime OrderDate { get; set; } = DateTime.Now;
         

@@ -29,7 +29,7 @@ namespace Marketplace.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return Redirect("/");
         }
 
         public async Task<IActionResult> UserDetails()
@@ -69,7 +69,16 @@ namespace Marketplace.Controllers
 
         public async Task<IActionResult> UserCart()
         {
-            return View();
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var cartDetais = await cartService.GetCartProducts(currentUser.Id);
+
+            return View(cartDetais);
         }
     }
 }
