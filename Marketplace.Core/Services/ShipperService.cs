@@ -22,6 +22,46 @@ namespace Marketplace.Core.Services
             repo = _repo;
         }
 
+        public async Task<bool> AddOrderToShipper(string userId, string orderId)
+        {
+            var user = await repo.GetByIdAsync<ApplicationUser>(userId);
+
+            var order = await repo.All<Order>()
+                .Where(o => o.Id == Guid.Parse(orderId))
+                .FirstOrDefaultAsync();
+
+            if (order == null || user == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                var shiper = new Shipper()
+                {
+                    UserId = Guid.Parse(user.Id),
+                    FirstName = user.FirstName,
+                    Phone = user.PhoneNumber,
+                    LastName = user.LastName
+                };
+
+                await repo.AddAsync(shiper);
+
+                order.Shipper = shiper;
+                order.OrderStatus = GlobalConstants.Order.ORDER_STATUS_IN_DELIVERY;
+
+                repo.Update(order);
+
+                await repo.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public async Task<bool> FinishOrder(string orderId)
         {
             var order = await repo.GetByIdAsync<Order>(orderId);
@@ -115,7 +155,7 @@ namespace Marketplace.Core.Services
             return result;
         }
 
-        public async Task<IEnumerable<OrdersViewModel>> GetOrdersToShip(string id)
+        public async Task<IEnumerable<OrdersViewModel>> GetOrdersToShip(string id) ////////
         {
             var user = await repo.All<ApplicationUser>()
           .Where(u => u.Id == id)
@@ -130,6 +170,7 @@ namespace Marketplace.Core.Services
 
             return user.Orders
                 .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_DELIVERY)
+                .Where(s => s.UserId == user.Id)
                 .Select(o => new OrdersViewModel()
                 {
                     OrderId = o.Id.ToString(),
@@ -144,7 +185,8 @@ namespace Marketplace.Core.Services
 
         public async Task<IEnumerable<ShipersListViewModel>> GetShippers(string orderId)
         {
-            return await repo.All<ApplicationUser>()               
+            return await repo.All<ApplicationUser>()
+                .Where(s => s.Is_Deleted == true)
                .Select(u => new ShipersListViewModel()
                {
                    Id = u.Id,

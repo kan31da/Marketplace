@@ -69,16 +69,17 @@ namespace Marketplace.Areas.Admin.Controllers
 
         public async Task<IActionResult> AddOrder(string userId, string orderId)
         {
-            //var currentUser = await userManager.GetUserAsync(User);
+            if (userId == null || orderId == null)
+            {
+                return Redirect(nameof(Orders));
+            }
 
-            //if (currentUser == null)
-            //{
-            //    return RedirectToAction(nameof(Index));
-            //}
+            if (await shipperService.AddOrderToShipper(userId, orderId))
+            {
+                return Redirect(nameof(Orders));
+            }
 
-            //var ordersToShip = await shipperService.GetOrdersToShip(currentUser.Id);
-
-            return Ok();
+            return Redirect(nameof(Orders));
         }
 
 

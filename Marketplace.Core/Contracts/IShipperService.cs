@@ -9,6 +9,7 @@ namespace Marketplace.Core.Contracts
         Task<IEnumerable<ShipersListViewModel>> GetShippers(string orderId);
         Task<bool> FinishOrder(string orderId);
         Task<bool> RemoveOrder(string orderId);
+        Task<bool> AddOrderToShipper(string userId, string orderId);
         Task<OrderDetailsViewModel> GetOrderDetails(string orderId);
     }
 }
