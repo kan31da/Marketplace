@@ -1,0 +1,35 @@
+﻿@using Marketplace.Core.Models
+@model IEnumerable<ShipersListViewModel>
+@{
+    ViewData["Title"] = "Manage Users";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card-body table-responsive p-0">
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th><p align="right">Add Order To Shipper</p></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Email</td>
+                            <td>@item.Phone</td>
+                            <td>
+                                <a asp-area="admin" asp-action="AddOrder" asp-controller="Shipper" asp-route-userId="@item.Id" asp-route-orderId="@item.OrderId" class="btn btn-danger float-right"> Add Order </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

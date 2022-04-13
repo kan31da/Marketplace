@@ -8,7 +8,7 @@
         }
         public static class UserEdit
         {
-            public const string REGULAREXPRESSION_ERROR_MESSAGES = "Is Deleted has only two options, True or False";
+            public const string REGULAREXPRESSION_ERROR_MESSAGES = "Is Shipper has only two options, True or False";
         }
 
         public static class AddProduct

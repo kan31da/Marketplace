@@ -30,8 +30,9 @@
                                 <td>@item.OrderDate</td>
                                 <td>@item.OrderPrice</td>
                                 <td>
+                                    <a asp-action="AddShipperToOrder" asp-controller="Shipper" asp-route-orderId="@item.OrderId" class="btn btn-info btn-info float-right"> Add to Shipper </a>
                                     <a asp-action="OrderDetails" asp-controller="Shipper" asp-route-orderId="@item.OrderId" class="btn btn-info btn-warning float-right"> Details </a>
-                                    <a asp-action="RemoveOrder" asp-controller="Shipper" asp-route-orderId="@item.OrderId" class="btn btn-info btn-warning float-right"> Details </a>
+                                    <a asp-action="RemoveOrder" asp-controller="Shipper" asp-route-orderId="@item.OrderId" class="btn btn-info btn-danger float-right"> Remove </a>
                                 </td>
                             </tr>
                         }

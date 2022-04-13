@@ -31,8 +31,8 @@ namespace Marketplace.Core.Models
 
 
         [Required]
-        [RegularExpression(GlobalConstants.UserEdit.REGULAREXPRESSION_IS_DELETED,
+        [RegularExpression(GlobalConstants.UserEdit.REGULAREXPRESSION_IS_SHIPPER,
             ErrorMessage = ErrorMessages.UserEdit.REGULAREXPRESSION_ERROR_MESSAGES)]
-        public string Is_Deleted { get; set; }
+        public string Is_Shipper { get; set; }
     }
 }

@@ -32,7 +32,7 @@ namespace Marketplace.Core.Services
                 user.LastName = model.LastName;
                 user.PhoneNumber = model.PhoneNumber;
                 user.Email = model.Email;
-                user.Is_Deleted = bool.Parse(model.Is_Deleted);
+                user.Is_Deleted = bool.Parse(model.Is_Shipper);
 
                 await repo.SaveChangesAsync();
             }
@@ -171,7 +171,7 @@ namespace Marketplace.Core.Services
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                Is_Deleted = user.Is_Deleted.ToString()
+                Is_Shipper = user.Is_Deleted.ToString()
             };
         }
 

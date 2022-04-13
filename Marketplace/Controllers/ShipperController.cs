@@ -38,25 +38,28 @@ namespace Marketplace.Controllers
             return View(ordersToShip);
         }
 
-        //public async Task<IActionResult> FinnishOrder(string orderId)
-        //{
-        //    var currentUser = await userManager.GetUserAsync(User);
+        [HttpPost]
+        public async Task<IActionResult> ShipperOrders(string orderId)
+        {
+            var currentUser = await userManager.GetUserAsync(User);
 
-        //    if (currentUser == null || orderId == null)
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
+            if (currentUser == null || orderId == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
+            if (await shipperService.FinishOrder(orderId))
+            {
+                ViewData[MessageConstant.SuccessMessage] = "Order Finished";
+            }
+            else
+            {
+                ViewData[MessageConstant.WarningMessage] = "Invalid Operation";
+            }
 
-        //    if (true)
-        //    {
+            var ordersToShip = await shipperService.GetOrdersToShip(currentUser.Id);
 
-        //    }
-
-        //    var ordersToFinish = await shipperService.GetOrderToFinish(currentUser.Id, orderId);
-
-        //    return View(ordersToShip);
-        //}
-
+            return View(ordersToShip);
+        }
     }
 }
