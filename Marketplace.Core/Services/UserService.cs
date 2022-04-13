@@ -72,6 +72,49 @@ namespace Marketplace.Core.Services
 
         }
 
+        public async Task<OrderDetailsViewModel> GetOrderDetails(string userId, string orderId)
+        {
+            var user = await repo.All<ApplicationUser>()
+             .Where(u => u.Id == userId)
+             .Include(u => u.Orders)
+             .ThenInclude(u => u.Products)
+             .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            var order = user.Orders
+                .Where(o => o.Id.ToString() == orderId)
+                .Select(o => new OrderDetailsViewModel()
+                {
+                    OrderId = o.Id.ToString(),
+                    OrderStatus = o.OrderStatus,
+                    OrderDate = o.OrderDate.ToString(GlobalConstants.Date.DATETIME_FORMAT),
+                    Products = o.Products.Select(p => new CartProductsViewModel()
+                    {
+                        Id = p.Id.ToString(),
+                        Image = p.ImagePath,
+                        Name = p.Name,
+                        Price = p.Price,
+                        Quantity = p.Quantity,
+                        TotalPrice = p.Price * p.Quantity
+                    }).ToList(),
+                    ShipperName = o.Shipper == null ? "" : $"{o.Shipper.FirstName} {o.Shipper.LastName}",
+                    ShipperPhone = o.Shipper == null ? "" : o.Shipper.Phone,
+                    OrderPrice = o.Products.Sum(m => m.Price * m.Quantity)
+
+                }).FirstOrDefault();
+
+            if (order == null)
+            {
+                return null;
+            }
+
+            return order;
+        }
+
         public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(string id)
         {
             var user = await repo.All<ApplicationUser>()

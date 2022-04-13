@@ -119,5 +119,25 @@ namespace Marketplace.Controllers
 
             return View(orders);
         }
+
+        public async Task<IActionResult> OrderDetails(string orderId)
+        {
+
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var orders = await userService.GetOrderDetails(currentUser.Id, orderId);
+
+            if (orders == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(orders);
+        }
     }
 }

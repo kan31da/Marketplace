@@ -8,6 +8,7 @@ namespace Marketplace.Core.Contracts
         Task<IEnumerable<UserListViewModel>> GetUsers();
         Task<IEnumerable<OrdersViewModel>> GetOrders(string id);
         Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(string id);
+        Task<OrderDetailsViewModel> GetOrderDetails(string userId, string orderId);
         Task<UserEditViewModel> GetUsersToEdit(string id);
         Task<bool> EditUser(UserEditViewModel model);
         Task<bool> SelfEditUser(UserEditViewModel model);
