@@ -291,6 +291,7 @@ namespace Marketplace.Core.Services
             {
                 var order = new Order()
                 {
+                    UserId = user.Id,
                     OrderPrice = user.Cart.Products.Sum(p => p.Quantity * p.Price),
                     DeliveryAddress = deliveryAddress,
                     OrderStatus = GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS,
@@ -301,9 +302,8 @@ namespace Marketplace.Core.Services
                         Name = p.Name,
                         ProductId = p.ProductId,
                         Price = p.Price,
-                        Quantity = p.Quantity
+                        Quantity = p.Quantity,
                     }).ToList()
-
                 };
 
                 await repo.AddAsync(order);

@@ -8,6 +8,7 @@ namespace Marketplace.Infrastructure.Data.Models
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
+        public string UserId { get; set; }
 
         [Required]
         [StringLength(ModelConstants.ORDERSTATUS_LENTGH)]

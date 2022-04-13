@@ -11,6 +11,26 @@
             </p>
         </a>
 
+        @if (User.IsInRole(UserConstants.Roles.Shipper))
+        {
+            <br></br>
+
+            <a class="nav-link">
+                <i class=""></i>
+                <p>
+                    <br></br>
+                    Shipper Controller
+                </p>
+            </a>
+
+            <a href="/Shipper/ShipperOrders/" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <p>
+                    Delivery Orders
+                </p>
+            </a>
+        }
+
         @if (User.IsInRole(UserConstants.Roles.Administrator))
         {
             <br></br>
@@ -28,7 +48,7 @@
                 <p>
                     Manage Users
                 </p>
-            </a>            
+            </a>
 
             <a href="/admin/Product/AddProduct" class="nav-link">
                 <i class="fas fa-store"></i>
@@ -51,12 +71,18 @@
                 </p>
             </a>
 
+              <a href="/admin/Shipper/Orders" class="nav-link">
+                <i class="fas fa-shipping-fast"></i>
+                <p>
+                    Add Remove Order to Shipper
+                </p>
+            </a>
             @*<a href="/admin/user/CreateRole" class="nav-link">
                 <i class="fas fa-user-friends"></i>
                 <p>
-                    CreateRole
+                CreateRole
                 </p>
-            </a>*@
+                </a>*@
         }
     </ul>
 </nav>

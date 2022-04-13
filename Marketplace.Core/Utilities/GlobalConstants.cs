@@ -22,7 +22,7 @@
         public static class Order
         {
             public const string ORDER_STATUS_IN_PROGRESS = "In progress";
-            public const string ORDER_STATUS_ON_DELIVERY = "In Delivery";
+            public const string ORDER_STATUS_IN_DELIVERY = "In Delivery";
             public const string ORDER_STATUS_FINISHED = "Finished";
         }
 
