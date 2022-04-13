@@ -293,10 +293,7 @@ namespace Marketplace.Core.Services
                 {
                     OrderPrice = user.Cart.Products.Sum(p => p.Quantity * p.Price),
                     DeliveryAddress = deliveryAddress,
-                    OrderStatus = new OrderStatus()
-                    {
-                        Status = GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS
-                    },
+                    OrderStatus = GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS,
                     Products = user.Cart.Products.Select(p => new OrderProduct()
                     {
                         Id = p.Id,
@@ -312,6 +309,8 @@ namespace Marketplace.Core.Services
                 await repo.AddAsync(order);
 
                 user.Orders.Add(order);
+
+                repo.DeleteRange(user.Cart.Products);
 
                 user.Cart.Products.Clear();
 

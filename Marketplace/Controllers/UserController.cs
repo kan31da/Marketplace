@@ -80,5 +80,44 @@ namespace Marketplace.Controllers
 
             return View(cartDetais);
         }
+
+        public async Task<IActionResult> UserOrders()
+        {
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var orders = await userService.GetOrders(currentUser.Id);
+
+            if (orders == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(orders);
+        }
+
+        public async Task<IActionResult> OrdersHistory()
+        {
+
+            var currentUser = await userManager.GetUserAsync(HttpContext.User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var orders = await userService.GetOrdersHistory(currentUser.Id);
+
+            if (orders == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(orders);
+        }
     }
 }

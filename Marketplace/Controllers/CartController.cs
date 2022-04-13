@@ -63,7 +63,7 @@ namespace Marketplace.Controllers
         {
             var currentUser = await userManager.GetUserAsync(User);
 
-            if (currentUser == null || model.Id == null || model.Quantity == null)
+            if (currentUser == null || model.Id == null)
             {
                 return RedirectToAction("UserCart", "User");
             }
@@ -142,10 +142,6 @@ namespace Marketplace.Controllers
             var order = await cartService.OrderProductCart(currentUser.Id, model.DeliveryAddress);
 
             return Redirect("/");
-        }
-        public async Task<IActionResult> UserOrdes()
-        {
-            return Ok();
-        }
+        }       
     }
 }

@@ -10,7 +10,8 @@ namespace Marketplace.Infrastructure.Data.Models
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
-        public OrderStatus OrderStatus { get; set; } = new OrderStatus();
+        [StringLength(ModelConstants.ORDERSTATUS_LENTGH)]
+        public string OrderStatus { get; set; } 
 
         public ICollection<OrderProduct> Products { get; set; } = new List<OrderProduct>();
 

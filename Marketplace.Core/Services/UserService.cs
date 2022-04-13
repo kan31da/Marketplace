@@ -1,5 +1,6 @@
 ﻿using Marketplace.Core.Contracts;
 using Marketplace.Core.Models;
+using Marketplace.Core.Utilities;
 using Marketplace.Infrastructure.Data.Identity;
 using Marketplace.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -37,10 +38,67 @@ namespace Marketplace.Core.Services
             }
             catch (Exception)
             {
-                return false;                
+                return false;
             }
 
             return true;
+        }
+
+        public async Task<IEnumerable<OrdersViewModel>> GetOrders(string id)
+        {
+            var user = await repo.All<ApplicationUser>()
+           .Where(u => u.Id == id)
+           .Include(u => u.Orders)
+           .ThenInclude(u => u.Products)
+           .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user.Orders
+                .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS)
+                .Select(o => new OrdersViewModel()
+                {
+                    OrderId = o.Id.ToString(),
+                    DeliveryAddress = o.DeliveryAddress,
+                    OrderPrice = o.Products.Sum(p => p.Quantity * p.Price),
+                    Phone = user.PhoneNumber,
+                    UserName = $"{user.FirstName} {user.LastName}",
+                    OrderDate = o.OrderDate.ToString(GlobalConstants.Date.DATETIME_FORMAT)
+
+                }).ToList();
+
+        }
+
+        public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(string id)
+        {
+            var user = await repo.All<ApplicationUser>()
+              .Where(u => u.Id == id)
+              .Include(u => u.Orders)
+              .ThenInclude(u => u.Products)
+              .FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                return null;
+            }
+
+            return user.Orders
+                .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_FINISHED)
+                .Select(o => new OrderHistoryViewModel()
+                {
+                    OrderId = o.Id.ToString(),
+                    DeliveryAddress = o.DeliveryAddress,
+                    OrderPrice = o.Products.Sum(p => p.Quantity * p.Price),
+                    Phone = user.PhoneNumber,
+                    UserName = $"{user.FirstName} {user.LastName}",
+                    OrderDate = o.OrderDate.ToString(GlobalConstants.Date.DATETIME_FORMAT),
+                    DeliveryDate = o.DeliveryDate?.ToString(GlobalConstants.Date.DATETIME_FORMAT) ?? "",
+                    OrderStatus = GlobalConstants.Order.ORDER_STATUS_FINISHED
+
+                }).ToList();
         }
 
         public async Task<ApplicationUser> GetUserById(string id)
@@ -87,7 +145,7 @@ namespace Marketplace.Core.Services
             {
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.PhoneNumber = model.PhoneNumber;                      
+                user.PhoneNumber = model.PhoneNumber;
 
                 await repo.SaveChangesAsync();
             }

@@ -19,9 +19,7 @@
 
         //ORDER
         public const string ORDER_DECIMAL_PRECISION = "decimal(14,2)";
-        public const int DELIVERY_ADDRESS_LENTGH = 600;
-
-        //ORDERSTATUS
+        public const int DELIVERY_ADDRESS_LENTGH = 600;       
         public const int ORDERSTATUS_LENTGH = 60;
 
         //IMAGE

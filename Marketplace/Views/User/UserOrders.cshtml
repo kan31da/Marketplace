@@ -1,0 +1,44 @@
+﻿@using Marketplace.Core.Models
+@model IEnumerable<OrdersViewModel>
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body table-responsive p-0">
+                <table class="table table-hover text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Owner Name</th>
+                            <th>Phone</th>
+                            <th>Delivery Address</th>
+                            <th>Order Date</th>
+                            <th>Total Price</th>
+                            <th><p align="right"></p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.UserName</td>
+                                <td>@item.Phone</td>
+                                <td>@item.DeliveryAddress</td>
+                                <td>@item.OrderDate</td>
+                                <td>@item.OrderPrice</td>
+                                <td>
+                                    <a asp-action="User" asp-controller="OrderDetails" asp-route-orderId="@item.OrderId" class="btn btn-info btn-warning float-right"> Details </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a asp-action="OrdersHistory" asp-controller="User" class="btn btn-info btn-info float-left"> Orders History </a>
