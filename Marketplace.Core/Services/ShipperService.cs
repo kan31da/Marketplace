@@ -28,6 +28,7 @@ namespace Marketplace.Core.Services
 
             var order = await repo.All<Order>()
                 .Where(o => o.Id == Guid.Parse(orderId))
+                .Include(o => o.Products)
                 .FirstOrDefaultAsync();
 
             if (order == null || user == null)
@@ -64,7 +65,9 @@ namespace Marketplace.Core.Services
 
         public async Task<bool> FinishOrder(string orderId)
         {
-            var order = await repo.GetByIdAsync<Order>(orderId);
+            var order = await repo.All<Order>()
+              .Where(o => o.Id == Guid.Parse(orderId))
+              .FirstOrDefaultAsync();
 
             if (order == null)
             {
@@ -155,32 +158,50 @@ namespace Marketplace.Core.Services
             return result;
         }
 
-        public async Task<IEnumerable<OrdersViewModel>> GetOrdersToShip(string id) ////////
+        public async Task<IEnumerable<OrdersViewModel>> GetOrdersToShip(string id)
         {
-            var user = await repo.All<ApplicationUser>()
-          .Where(u => u.Id == id)
-          .Include(u => u.Orders)
-          .ThenInclude(u => u.Products)
-          .FirstOrDefaultAsync();
+            var users = await repo.All<ApplicationUser>()
+                .ToListAsync();
 
-            if (user == null)
+            var user = await repo.GetByIdAsync<ApplicationUser>(id);
+
+            var orders = await repo.All<Order>()
+                .Include(o => o.Products)
+                .Include(o => o.Shipper)
+                .ToListAsync();
+
+
+            if (users == null || orders == null)
             {
                 return null;
             }
 
-            return user.Orders
-                .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_DELIVERY)
-                .Where(s => s.UserId == user.Id)
-                .Select(o => new OrdersViewModel()
-                {
-                    OrderId = o.Id.ToString(),
-                    DeliveryAddress = o.DeliveryAddress,
-                    OrderPrice = o.Products.Sum(p => p.Quantity * p.Price),
-                    Phone = user.PhoneNumber,
-                    UserName = $"{user.FirstName} {user.LastName}",
-                    OrderDate = o.OrderDate.ToString(GlobalConstants.Date.DATETIME_FORMAT)
+            var result = new List<OrdersViewModel>();
 
-                }).ToList();
+
+            foreach (var o in orders)
+            {
+                if (o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_DELIVERY && o.Shipper.UserId.ToString() == user.Id)
+                {
+                    foreach (var u in users)
+                    {
+                        if (o.UserId == u.Id)
+                        {
+                            result.Add(new OrdersViewModel()
+                            {
+                                OrderId = o.Id.ToString(),
+                                DeliveryAddress = o.DeliveryAddress,
+                                OrderPrice = o.Products.Sum(p => p.Quantity * p.Price),
+                                Phone = u.PhoneNumber,
+                                UserName = $"{u.FirstName} {u.LastName}",
+                                OrderDate = o.OrderDate.ToString(GlobalConstants.Date.DATETIME_FORMAT)
+                            });
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         public async Task<IEnumerable<ShipersListViewModel>> GetShippers(string orderId)

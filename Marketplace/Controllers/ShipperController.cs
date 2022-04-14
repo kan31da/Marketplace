@@ -61,5 +61,19 @@ namespace Marketplace.Controllers
 
             return View(ordersToShip);
         }
+        public async Task<IActionResult> FinnishOrder(string orderId)
+        {
+            if (orderId == null)
+            {
+                return Redirect(nameof(ShipperOrders));
+            }
+
+            if (await shipperService.FinishOrder(orderId))
+            {
+                return Redirect(nameof(ShipperOrders));
+            }
+
+            return Redirect(nameof(ShipperOrders));
+        }
     }
 }
