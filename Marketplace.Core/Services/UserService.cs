@@ -2,6 +2,7 @@
 using Marketplace.Core.Models;
 using Marketplace.Core.Utilities;
 using Marketplace.Infrastructure.Data.Identity;
+using Marketplace.Infrastructure.Data.Models;
 using Marketplace.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -58,7 +59,8 @@ namespace Marketplace.Core.Services
             }
 
             return user.Orders
-                .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS)
+                .Where(o => o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_PROGRESS
+                || o.OrderStatus == GlobalConstants.Order.ORDER_STATUS_IN_DELIVERY)
                 .Select(o => new OrdersViewModel()
                 {
                     OrderId = o.Id.ToString(),
@@ -80,12 +82,20 @@ namespace Marketplace.Core.Services
              .ThenInclude(u => u.Products)
              .FirstOrDefaultAsync();
 
+            var orders = await repo.All<Order>()
+                 .Where(u => u.UserId == user.Id)
+                 .Include(p => p.Products)
+                 .Include(p => p.Shipper)
+                 .ToListAsync();
+
+
+
             if (user == null)
             {
                 return null;
             }
 
-            var order = user.Orders
+            var result = orders
                 .Where(o => o.Id.ToString() == orderId)
                 .Select(o => new OrderDetailsViewModel()
                 {
@@ -107,12 +117,12 @@ namespace Marketplace.Core.Services
 
                 }).FirstOrDefault();
 
-            if (order == null)
+            if (result == null)
             {
                 return null;
             }
 
-            return order;
+            return result;
         }
 
         public async Task<IEnumerable<OrderHistoryViewModel>> GetOrdersHistory(string id)

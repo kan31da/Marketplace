@@ -29,6 +29,7 @@ namespace Marketplace.Core.Services
             var order = await repo.All<Order>()
                 .Where(o => o.Id == Guid.Parse(orderId))
                 .Include(o => o.Products)
+                .Include(o => o.Shipper)
                 .FirstOrDefaultAsync();
 
             if (order == null || user == null)
