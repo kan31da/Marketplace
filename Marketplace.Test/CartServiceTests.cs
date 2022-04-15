@@ -27,7 +27,7 @@ namespace Marketplace.Test
 
             var repo = serviceProvider.GetService<IApplicatioDbRepository>();
 
-            await SeedDbAsync(repo);
+            //await SeedDbAsync(repo);
 
         }
 

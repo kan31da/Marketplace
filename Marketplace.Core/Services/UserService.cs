@@ -5,6 +5,7 @@ using Marketplace.Infrastructure.Data.Identity;
 using Marketplace.Infrastructure.Data.Models;
 using Marketplace.Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 
 namespace Marketplace.Core.Services
 {
@@ -87,7 +88,6 @@ namespace Marketplace.Core.Services
                  .Include(p => p.Products)
                  .Include(p => p.Shipper)
                  .ToListAsync();
-
 
 
             if (user == null)
@@ -211,3 +211,4 @@ namespace Marketplace.Core.Services
         }
     }
 }
+
