@@ -34,18 +34,70 @@ namespace Marketplace.Test
         [Test]
         public void GetUsersCartCountTest()
         {
-
             var service = serviceProvider.GetService<ICartService>();
 
             Assert.That(async () => await service.GetUsersCartCount(""), Is.EqualTo(0));
         }
 
         [Test]
+        public void OrderProductCartTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.OrderProductCart("", ""), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void GetUsersCurrentOrderTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.GetUsersCurrentOrder(""), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void GetProductToEditTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.GetProductToEdit("", ""), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void GetCartProductsTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.GetCartProducts(""), Is.EqualTo(null));
+        }
+
+        [Test]
+        public void DeleteProductCartTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.DeleteProductCart("", ""), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void CartProductToEditTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.CartProductToEdit("", "", 0), Is.EqualTo(false));
+        }
+
+        [Test]
+        public void AddProductToCartTest()
+        {
+            var service = serviceProvider.GetService<ICartService>();
+
+            Assert.That(async () => await service.AddProductToCart("", ""), Is.EqualTo(false));
+        }
+
+        [Test]
         public void Test()
         {
-
-
-
             Assert.Pass();
         }
 
